@@ -6,8 +6,8 @@ public enum Direction {
 	
 	NORTH(-1, 0), EAST(0, 1), SOUTH(1, 0), WEST(0, -1);
 	
-	int incrementX;
-	int incrementY;
+	private int incrementX;
+	private int incrementY;
 	
 	private Direction(int incrementX, int incrementY) {
 		this.incrementX = incrementX;
