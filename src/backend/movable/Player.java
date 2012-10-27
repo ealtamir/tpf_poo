@@ -30,8 +30,7 @@ public class Player extends Movable{
 
 	@Override
 	public void updatePosition(Point position) {
-		// TODO Auto-generated method stub
-		
+		this.position = position;
 	}
 	
 }

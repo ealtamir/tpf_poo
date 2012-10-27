@@ -1,4 +1,4 @@
-package tester;
+package tests;
 
 
 import backend.board.*;
