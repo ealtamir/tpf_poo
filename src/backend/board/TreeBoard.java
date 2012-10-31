@@ -1,6 +1,7 @@
 package backend.board;
 
 import backend.cell.*;
+import java.awt.Point;
 
 public class TreeBoard extends Board {
 	
@@ -10,7 +11,7 @@ public class TreeBoard extends Board {
 		try {
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
-					this.setCell(x, y, new Tree());
+					this.setCell(x, y, new Tree(new Point(x, y)));
 				}
 			}
 		} catch (InvalidPositionException e) {

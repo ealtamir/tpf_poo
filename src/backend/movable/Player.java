@@ -1,27 +1,33 @@
 package backend.movable;
+
 import java.awt.Point;
+import backend.board.InvalidPositionException;
 
 import backend.board.*;
 
-public class Player extends Movable{
-	private Board board;
-	private Point position;
+public class Player extends Movable {
 	
 	public Player(Board board, Point position){
-		this.board = board;
-		this.position = position;
+		super(board, position);
 	}
 	
-	public boolean move(Direction dir){
+	public boolean move(Direction dir) {
+		
 		Point nextPosition = dir.increment(position);
 		
-		if(board.getCell(nextPosition).receiveMovable(this, dir)){
-			this.updatePosition(nextPosition);
-			return true;
+		Movable targetMovable = null;
+		
+		try {
+			targetMovable = board.getCell(nextPosition).getMovable();
+		}
+		catch (InvalidPositionException e) {
+			return false; // No podemos movernos si la siguiente posicion es invalida.
 		}
 		
-		return false;
+		if (targetMovable != null)
+			targetMovable.move(dir);
 		
+		return super.move(dir);
 		
 	}
 

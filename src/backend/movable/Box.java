@@ -5,12 +5,9 @@ import backend.board.Direction;
 import java.awt.Point;
 
 public class Box extends Movable{
-	private Board board;
-	private Point position;
 	
-	public Box(Board board, Point position){
-		this.board = board;
-		this.position = position;
+	public Box(Board board, Point position) {
+		super(board, position);
 	}
 
 	@Override

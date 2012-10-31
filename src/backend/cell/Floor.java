@@ -8,34 +8,25 @@ import backend.movable.Movable;
 
 public class Floor extends Cell {
 
-	private Movable movable;
-	private Point position;
+	protected Movable movable;
 	
-	public Floor(){
-		
-	}
-	
-	public Floor(Movable movable, Point position){
+	public Floor(Movable movable, Point position) {
+		super(position);
 		this.movable = movable;		
-		this.position = position;
 	}
 	
-	public Point getPosition(){
-		return this.position; 
+	public Floor(Point position) {
+		super(position);
 	}
 	
 	@Override
 	public Movable getMovable() {
 		return this.movable;
 	}
-
-	public void setMovable(Movable movable){
-		this.movable = movable;
-	}
 	
 	@Override
 	public boolean isOccupiable() {
-		return true;
+		return (this.movable == null);
 	}
 
 	@Override
@@ -52,8 +43,16 @@ public class Floor extends Cell {
 	}
 	
 	@Override
-	public void receiveMovable(Movable movable, Direction direction) throws UnoccupiableException {
-		movable.updatePosition(position);
+	public boolean receiveMovable(Movable movable, Direction direction) {
+		
+		boolean canOccupy = this.isOccupiable();
+		
+		if (canOccupy) {
+			this.movable = movable;
+			movable.updatePosition(position);			
+		}
+		
+		return canOccupy;
 	}
 	
 	

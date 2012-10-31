@@ -9,9 +9,19 @@ public abstract class Cell {
 
 	protected Point position;
 	
+	public Cell(Point position) {
+		this.position = position;
+	}
+	
+	public Point getPosition() {
+		return this.position;
+	}
+	
 	public abstract Movable getMovable();
 	
 	public abstract boolean isOccupiable();
+	
+
 	
 	/**
 	 * Testing method. Delete later.	
@@ -19,7 +29,7 @@ public abstract class Cell {
 	 */
 	public abstract String idCharacter();
 	
-	public abstract void receiveMovable(Movable movable, Direction direction) throws UnoccupiableException;
+	public abstract boolean receiveMovable(Movable movable, Direction direction);
 	
 	public abstract Movable releaseMovable(Direction direction);
 	

@@ -1,9 +1,15 @@
 package backend.cell;
 
 import backend.board.Direction;
+import java.awt.Point;
+
 import backend.movable.Movable;
 
 public class Tree extends Cell {
+	
+	public Tree(Point position) {
+		super(position);
+	}
 	
 	@Override
 	public Movable getMovable() {
@@ -26,8 +32,8 @@ public class Tree extends Cell {
 	}
 	
 	@Override
-	public void receiveMovable(Movable movable, Direction direction) throws UnoccupiableException {	
-		throw new UnoccupiableException("Cell of type Tree cannot receive a movable.");
+	public boolean receiveMovable(Movable movable, Direction direction) {
+		return false;
 	}
 	
 	

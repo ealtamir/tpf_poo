@@ -1,6 +1,6 @@
 package backend.cell;
 
-public class UnoccupiableException extends Exception {
+public class UnoccupiableException extends RuntimeException {
 	
 	public UnoccupiableException() {
 	}
