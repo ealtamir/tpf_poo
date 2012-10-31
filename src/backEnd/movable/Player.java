@@ -1,6 +1,7 @@
-package backend.movable;
+package backEnd.movable;
 import java.awt.Point;
-import backend.board.*;
+
+import backEnd.board.*;
 
 public class Player extends Movable{
 	private Board board;
@@ -11,13 +12,13 @@ public class Player extends Movable{
 		this.position = position;
 	}
 	
-	public void move(Direction dir){
-		try{
-			board.getCell(dir.increment(position)).receiveMovable(this, dir); // TODO hay que ver bien este último método, realmente necesita un Direction?
+	public boolean move(Direction dir){
+		Point nextPosition = dir.increment(position);
+		if(board.getCell(nextPosition).receiveMovable(this, dir)){
+			this.updatePosition(nextPosition);
+			return true;
 		}
-		catch(Exception e){
-			e.printStackTrace(); // TODO Qué hago aca? nada? 
-		}
+		return false;
 		
 		
 	}

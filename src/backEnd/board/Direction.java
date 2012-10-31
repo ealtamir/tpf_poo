@@ -1,4 +1,4 @@
-package backend.board;
+package backEnd.board;
 
 import java.awt.Point;
 

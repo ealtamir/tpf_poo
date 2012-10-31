@@ -1,6 +1,7 @@
-package backend.board;
+package backEnd.board;
 import java.awt.Point;
-import backend.cell.*;
+
+import backEnd.cell.*;
 
 public class Board {
 	
@@ -25,8 +26,8 @@ public class Board {
 	 * @return Referencia a la celda en la posicion Point(x, y)
 	 * @throws InvalidPositionException
 	 */
-	public Cell getCell(Point p) throws InvalidPositionException {
-		return this.getCell(p.x, p.y);
+	public Cell getCell(Point p) {
+		return this.terrain[p.x][p.y];
 	}
 	
 

@@ -1,6 +1,6 @@
-package backend.board;
+package backEnd.board;
 
-import backend.cell.*;
+import backEnd.cell.*;
 
 public class TreeBoard extends Board {
 	

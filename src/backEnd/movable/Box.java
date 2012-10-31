@@ -1,6 +1,6 @@
-package backend.movable;
-import backend.board.Board;
-import backend.board.Direction;
+package backEnd.movable;
+import backEnd.board.Board;
+import backEnd.board.Direction;
 
 import java.awt.Point;
 
@@ -14,8 +14,8 @@ public class Box extends Movable{
 	}
 
 	@Override
-	public void move(Direction direction) {
-		// TODO Auto-generated method stub
+	public boolean move(Direction direction) {
+		return true; // TODO Realmente es necesario un move en Box? Si no, sacarlo de Movable e implementar solo en Player.
 		
 	}
 

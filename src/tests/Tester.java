@@ -1,7 +1,7 @@
 package tests;
 
 
-import backend.board.*;
+import backEnd.board.*;
 
 public class Tester {
 

@@ -1,7 +1,7 @@
-package backend.cell;
+package backEnd.cell;
 
-import backend.board.Direction;
-import backend.movable.Movable;
+import backEnd.board.Direction;
+import backEnd.movable.Movable;
 
 public class Tree extends Cell {
 	
@@ -28,7 +28,7 @@ public class Tree extends Cell {
 	
 	
 	@Override
-	public void receiveMovable(Movable movable, Direction direction) {
+	public boolean receiveMovable(Movable movable, Direction direction) {
 		throw new UnsupportedOperationException("Can't receive movable at Tree.");
 		
 	}

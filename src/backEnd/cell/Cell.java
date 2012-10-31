@@ -1,7 +1,8 @@
-package backend.cell;
+package backEnd.cell;
 
-import backend.movable.*;
-import backend.board.Direction;
+import backEnd.board.Direction;
+import backEnd.movable.*;
+
 import java.awt.Point;
 
 public abstract class Cell {
@@ -14,7 +15,7 @@ public abstract class Cell {
 	
 	public abstract String idCharacter();
 	
-	public abstract void receiveMovable(Movable movable, Direction direction);
+	public abstract boolean receiveMovable(Movable movable, Direction direction);
 	
 	public abstract Movable releaseMovable(Direction direction);
 	
