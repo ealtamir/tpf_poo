@@ -1,6 +1,7 @@
 package backend.movable;
 
 import backend.board.Board;
+import backend.board.InconsistentBoardStateException;
 import backend.board.InvalidPositionException;
 import backend.cell.Cell;
 
@@ -16,6 +17,12 @@ public abstract class Movable {
 	public Movable(Board board, Point position) {
 		this.board = board;
 		this.position = position;
+		
+		try {
+			board.getCell(this.position).receiveMovable(this);
+		} catch (InvalidPositionException e) {
+			throw new InconsistentBoardStateException();
+		}
 	}
 	
 	public boolean move(Direction direction) {
@@ -25,24 +32,29 @@ public abstract class Movable {
 		
 		try {
 			currentCell = this.board.getCell(this.position);
-			targetCell = this.board.getCell(this.position);
+			targetCell = this.board.getCell(direction.increment(this.position));
 		}
 		catch (InvalidPositionException e) {
 			return false;
 		}
 		
-		currentCell.releaseMovable(direction);
-		
-		try {
-			if (targetCell.isOccupiable())
-				targetCell.receiveMovable(this, direction);
+		if (targetCell.isOccupiable()) {
+			this.position = targetCell.getPosition();
+			targetCell.receiveMovable(this);
+			currentCell.releaseMovable();
+			return true;
 		}
-		catch 
 		
+		return false;
 		
 	}
 	
+	public Point getPosition() {
+		return this.position;
+	}
+	
+	public abstract String idCharacter();
+	
 	public abstract void getWet();
-	public abstract void updatePosition(Point position);
 		
 }

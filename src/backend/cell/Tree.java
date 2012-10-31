@@ -1,6 +1,5 @@
 package backend.cell;
 
-import backend.board.Direction;
 import java.awt.Point;
 
 import backend.movable.Movable;
@@ -27,13 +26,13 @@ public class Tree extends Cell {
 	}
 	
 	@Override
-	public Movable releaseMovable(Direction direction) {
+	public Movable releaseMovable() {
 		return null;
 	}
 	
 	@Override
-	public boolean receiveMovable(Movable movable, Direction direction) {
-		return false;
+	public void receiveMovable(Movable movable) {
+		throw new UnoccupiableException("Instance of class Tree cannot be occupied.");
 	}
 	
 	

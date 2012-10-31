@@ -1,11 +1,10 @@
 package backend.cell;
 
-import backend.board.Direction;
 import backend.movable.Movable;
 
 import java.awt.Point;
 
-public class Water extends Floor {
+public class Water extends Cell {
 	
 	public Water(Point position) {
 		super(position);
@@ -18,10 +17,23 @@ public class Water extends Floor {
 	}
 	
 	@Override
-	public boolean receiveMovable(Movable movable, Direction direction) {
-		movable.updatePosition(this.position);
+	public void receiveMovable(Movable movable) {
 		movable.getWet();
-		return false;
+	}
+	
+	@Override
+	public Movable releaseMovable() {
+		return null;
+	}
+	
+	@Override
+	public boolean isOccupiable() {
+		return true;
+	}
+	
+	@Override
+	public Movable getMovable() {
+		return null;
 	}
 	
 

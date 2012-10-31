@@ -2,8 +2,6 @@ package backend.cell;
 
 import java.awt.Point;
 
-import backend.board.Board;
-import backend.board.Direction;
 import backend.movable.Movable;
 
 public class Floor extends Cell {
@@ -17,6 +15,7 @@ public class Floor extends Cell {
 	
 	public Floor(Point position) {
 		super(position);
+		this.movable = null;
 	}
 	
 	@Override
@@ -31,28 +30,31 @@ public class Floor extends Cell {
 
 	@Override
 	public String idCharacter() {
+		if (this.movable == null)
+			return this.idCharacterBase();
+		else
+			return this.movable.idCharacter();
+	}
+	
+	public String idCharacterBase() {
 		return " ";
 	}
 	
-	
 	@Override
-	public Movable releaseMovable(Direction direction) {
+	public Movable releaseMovable() {
 		Movable movable = this.movable;
 		this.movable = null;
 		return movable;
 	}
 	
 	@Override
-	public boolean receiveMovable(Movable movable, Direction direction) {
+	public void receiveMovable(Movable movable) {
 		
-		boolean canOccupy = this.isOccupiable();
+		if (!this.isOccupiable())
+			throw new UnoccupiableException("Cell already occupied.");
 		
-		if (canOccupy) {
-			this.movable = movable;
-			movable.updatePosition(position);			
-		}
+		this.movable = movable;
 		
-		return canOccupy;
 	}
 	
 	

@@ -1,6 +1,11 @@
 package backend.movable;
+
 import backend.board.Board;
-import backend.board.Direction;
+
+import backend.board.InvalidPositionException;
+import backend.cell.ShallowWater;
+
+import backend.board.InconsistentBoardStateException;
 
 import java.awt.Point;
 
@@ -11,22 +16,20 @@ public class Box extends Movable{
 	}
 
 	@Override
-	public boolean move(Direction direction) {
-		return true; // TODO Realmente es necesario un move en Box? Si no, sacarlo de Movable e implementar solo en Player.
-		
-	}
-
-	@Override
 	public void getWet() {
-		// TODO Auto-generated method stub
-		
+		try {
+			board.setCell(this.position, new ShallowWater(this.position));
+		}
+		catch (InvalidPositionException e) {
+			throw new InconsistentBoardStateException("Box got wet at invalid position.");
+		}
+	}
+	
+	@Override
+	public String idCharacter() {
+		return "B";
 	}
 
-	@Override
-	public void updatePosition(Point position) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	
 }

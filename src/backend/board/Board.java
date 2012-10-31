@@ -65,8 +65,8 @@ public class Board {
 		int y;
 		
 		try {
-			for (x = 0; x < this.width; x++) {
-				for (y = 0; y < this.height; y++) {
+			for (y = 0; y < this.width; y++) {
+				for (x = 0; x < this.height; x++) {
 					System.out.print(this.getCell(x, y).idCharacter() + " ");
 				}
 				System.out.println();

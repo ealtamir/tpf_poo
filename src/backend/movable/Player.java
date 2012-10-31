@@ -30,16 +30,19 @@ public class Player extends Movable {
 		return super.move(dir);
 		
 	}
-
+	
 	@Override
-	public void getWet() {
-		// TODO Auto-generated method stub
-		
+	public String idCharacter() {
+		return "@";
 	}
 
 	@Override
-	public void updatePosition(Point position) {
-		this.position = position;
+	public void getWet() {
+		System.out.println("You lose!");
+	}
+	
+	public void endGame() {
+		System.out.println("You win!");		
 	}
 	
 }

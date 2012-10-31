@@ -9,7 +9,8 @@ public class ShallowWater extends Floor {
 	}
 	
 	@Override
-	public String idCharacter() {
+	public String idCharacterBase() {
 		return "S";
 	}
+	
 }
