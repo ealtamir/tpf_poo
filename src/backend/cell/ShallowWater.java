@@ -9,8 +9,8 @@ public class ShallowWater extends Floor {
 	}
 	
 	@Override
-	public String idCharacterBase() {
-		return "S";
+	public void accept(CellVisitor visitor) {
+		visitor.visit(this);		
 	}
 	
 }

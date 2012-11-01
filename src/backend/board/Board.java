@@ -11,11 +11,11 @@ public class Board {
 	
 	/**
 	 * Crea un tablero nuevo de alto height y ancho width.
-	 * @param height Alto del tablero
 	 * @param width Ancho del tablero
+	 * @param height Alto del tabler
 	 */
-	public Board(int height, int width) {
-		this.terrain = new Cell[height][width];
+	public Board(int width, int height) {
+		this.terrain = new Cell[width][height];
 		this.width = width;
 		this.height = height;
 	}
@@ -33,7 +33,7 @@ public class Board {
 		if (this.validPosition(x, y)) {
 			return this.terrain[x][y];
 		} else {
-			throw new InvalidPositionException();
+			throw new InvalidPositionException(this, new Point(x, y));
 		}
 	}
 	
@@ -45,30 +45,19 @@ public class Board {
 		if (this.validPosition(x, y)) {
 			this.terrain[x][y] = cell;
 		} else {
-			throw new InvalidPositionException();
+			throw new InvalidPositionException(this, new Point(x, y));
 		}
 	}
 	
-
 	private boolean validPosition(int x, int y) {
 		return (x >= 0 && y >= 0 && y < this.height && x < this.width);
 	}
 
 	
-	public void print() {
-		int x;
-		int y;
-		
-		try {
-			for (y = 0; y < this.width; y++) {
-				for (x = 0; x < this.height; x++) {
-					System.out.print(this.getCell(x, y).idCharacter() + " ");
-				}
-				System.out.println();
-			}
-		} catch (InvalidPositionException e) {
-			System.err.println("Stupid Error " + e);
-		}
+	public void cellsAccept(CellVisitor visitor) {
+		for (int y = 0; y < this.height; y++)
+			for (int x = 0; x < this.width; x++)
+				this.getCell(x, y).accept(visitor);
 	}
 	
 

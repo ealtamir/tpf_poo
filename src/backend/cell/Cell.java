@@ -16,20 +16,11 @@ public abstract class Cell {
 		return this.position;
 	}
 	
+	public abstract void accept(CellVisitor visitor);
+	
 	public abstract Movable getMovable();
 	
 	public abstract boolean isOccupiable();
-	
-
-	
-	/**
-	 * El metodo devuelve un String que caracteriza a la celda.
-	 * Sirve para propositos de debug, de modo de dibujar un mapa en
-	 * consola.
-	 * @deprecated Testing method. Delete later.
-	 * @return String que caracteriza a la celda
-	 */
-	public abstract String idCharacter();
 	
 	public abstract void receiveMovable(Movable movable);
 	

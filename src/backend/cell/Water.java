@@ -19,11 +19,6 @@ public class Water extends Cell {
 	}
 
 	@Override
-	public String idCharacter() {
-		return "#";
-	}
-	
-	@Override
 	public void receiveMovable(Movable movable) {
 		movable.getWet();
 	}
@@ -43,5 +38,9 @@ public class Water extends Cell {
 		return null;
 	}
 	
+	@Override
+	public void accept(CellVisitor visitor) {
+		visitor.visit(this);		
+	}
 
 }

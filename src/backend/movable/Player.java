@@ -2,13 +2,17 @@ package backend.movable;
 
 import java.awt.Point;
 import backend.board.InvalidPositionException;
+import backend.Game;
 
 import backend.board.*;
 
 public class Player extends Movable {
 	
-	public Player(Board board, Point position){
-		super(board, position);
+	private Game game;
+	
+	public Player(Game game, Point position){
+		super(game.getBoard(), position);
+		this.game = game;
 	}
 	
 	public boolean move(Direction dir) {
@@ -43,11 +47,15 @@ public class Player extends Movable {
 
 	@Override
 	public void getWet() {
-		System.out.println("You lose!");
+		this.game.lose();
 	}
 	
 	public void endGame() {
-		System.out.println("You win!");		
+		this.game.win();	
+	}
+	
+	public void accept(MovableVisitor visitor) {
+		visitor.visit(this);
 	}
 	
 }

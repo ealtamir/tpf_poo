@@ -38,8 +38,8 @@ public class Switch extends Floor {
 	}
 	
 	@Override
-	public String idCharacterBase() {
-		return "K";
+	public void accept(CellVisitor visitor) {
+		visitor.visit(this);		
 	}
 	
 }

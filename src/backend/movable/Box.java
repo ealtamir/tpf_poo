@@ -23,6 +23,9 @@ public class Box extends Movable{
 		return "B";
 	}
 
+	public void accept(MovableVisitor visitor) {
+		visitor.visit(this);
+	}	
 	
 	
 }

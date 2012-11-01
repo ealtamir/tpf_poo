@@ -27,18 +27,6 @@ public class Floor extends Cell {
 	public boolean isOccupiable() {
 		return (this.movable == null);
 	}
-
-	@Override
-	public String idCharacter() {
-		if (this.movable == null)
-			return this.idCharacterBase();
-		else
-			return this.movable.idCharacter();
-	}
-	
-	public String idCharacterBase() {
-		return " ";
-	}
 	
 	@Override
 	public Movable releaseMovable() {
@@ -57,6 +45,10 @@ public class Floor extends Cell {
 		
 	}
 	
+	@Override
+	public void accept(CellVisitor visitor) {
+		visitor.visit(this);		
+	}
 	
 	
 

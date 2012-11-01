@@ -6,10 +6,10 @@ import backend.cell.*;
 
 public class BasicTestBoard extends Board {
 	
-	public BasicTestBoard(int height, int width) {
-		super(height, width);
+	public BasicTestBoard(int width, int height) {
+		super(width, height);
 		
-		Destination dest = new Destination(new Point(9,9));
+		Destination dest = new Destination(new Point(8,8));
 		Switch sw = new Switch(new Point(4, 4));
 		sw.setDestination(dest);
 		

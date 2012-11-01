@@ -37,8 +37,8 @@ public class Destination extends Floor {
 	}
 	
 	@Override
-	public String idCharacterBase() {
-		return (this.visible ? "G" : "g");
+	public void accept(CellVisitor visitor) {
+		visitor.visit(this);		
 	}
 	
 }

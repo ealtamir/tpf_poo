@@ -21,11 +21,6 @@ public class Tree extends Cell {
 	}
 	
 	@Override
-	public String idCharacter() {
-		return "T";
-	}
-	
-	@Override
 	public Movable releaseMovable() {
 		return null;
 	}
@@ -33,6 +28,11 @@ public class Tree extends Cell {
 	@Override
 	public void receiveMovable(Movable movable) {
 		throw new UnoccupiableException("Instance of class Tree cannot be occupied.");
+	}
+	
+	@Override
+	public void accept(CellVisitor visitor) {
+		visitor.visit(this);		
 	}
 	
 	

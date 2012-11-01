@@ -18,6 +18,10 @@ public abstract class Movable {
 		this.position = position;
 	}
 	
+	public void insert() {
+		this.board.getCell(this.position).receiveMovable(this);
+	}
+	
 	public boolean move(Direction direction) {
 		
 		Cell currentCell = this.board.getCell(this.position);
@@ -54,6 +58,8 @@ public abstract class Movable {
 	}
 	
 	public abstract String idCharacter();
+	
+	public abstract void accept(MovableVisitor visitor);
 	
 	public abstract void getWet();
 		
