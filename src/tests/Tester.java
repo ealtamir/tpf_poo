@@ -16,9 +16,49 @@ public class Tester {
 	public static void main(String[] args) {
 		
 		Game testGame = new BasicTestGame();
+		Player player = testGame.getPlayer();
+
+		player.move(Direction.EAST);
+		player.move(Direction.EAST);
+		player.move(Direction.EAST);
+		player.move(Direction.SOUTH);
+		player.move(Direction.SOUTH);
 		
+		player.move(Direction.EAST);
+		player.move(Direction.SOUTH);
+		player.move(Direction.SOUTH);
+		
+		player.move(Direction.WEST);
+		player.move(Direction.WEST);
+		
+		player.move(Direction.NORTH);
+		player.move(Direction.WEST);
+		
+		player.move(Direction.SOUTH);
+		player.move(Direction.SOUTH);
+		player.move(Direction.SOUTH);
+		player.move(Direction.SOUTH);
+		
+		player.move(Direction.EAST);
+		player.move(Direction.EAST);
+		player.move(Direction.EAST);
+		player.move(Direction.EAST);
+		player.move(Direction.EAST);
+		player.move(Direction.EAST);
+		
+//		player.move(Direction.SOUTH);
+//		
+//		for (int i = 0; i < 8; i++) {
+//			player.move(Direction.EAST);
+//		}
+//		
+//		player.move(Direction.WEST);
+//		
+//		player.move(Direction.NORTH);
+//		player.move(Direction.NORTH);
 		
 		testGame.getBoard().cellsAccept(new TestPrintCellVisitor());
+		
 		//testGame.getBoard().print();
 		
 		

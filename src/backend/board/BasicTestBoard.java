@@ -18,7 +18,11 @@ public class BasicTestBoard extends Board {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				if (x == 0 || y == 0 || x == (width-1) || y == (height-1)) {
-					this.setCell(x, y, new Tree(new Point(x, y)));						
+					if (y % 2 == 0)
+						this.setCell(x, y, new Tree(new Point(x, y)));
+					else
+						this.setCell(x, y, new Floor(new Point(x,y)));
+
 				}
 				else if (y == 7) {
 					this.setCell(x, y, new Water(new Point(x, y)));

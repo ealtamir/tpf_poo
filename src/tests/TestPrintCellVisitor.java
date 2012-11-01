@@ -6,8 +6,6 @@ import java.awt.Point;
 
 public class TestPrintCellVisitor implements CellVisitor {
 	
-	private Point lastCellPosition = new Point(0, 0);
-	
 	private class TestPrintMovableVisitor implements MovableVisitor {
 		@Override
 		public void visit(Box box) {
@@ -26,6 +24,9 @@ public class TestPrintCellVisitor implements CellVisitor {
 		}
 	}
 	
+	private Point lastCellPosition = new Point(0, 0);
+	private TestPrintMovableVisitor testPrintMovableVisitor = new TestPrintMovableVisitor();
+	
 	private void printCell(Cell c, String ident) {
 		Movable movable = c.getMovable();
 		Point cellPosition = c.getPosition();
@@ -38,7 +39,7 @@ public class TestPrintCellVisitor implements CellVisitor {
 			System.out.print(ident + " ");
 		}
 		else {
-			movable.accept(new TestPrintMovableVisitor());
+			movable.accept(testPrintMovableVisitor);
 		}
 		
 
@@ -49,7 +50,7 @@ public class TestPrintCellVisitor implements CellVisitor {
 	
 	@Override
 	public void visit(Destination d) {
-		printCell(d, "G");
+		printCell(d, (d.isVisible() ? "G" : "g"));
 	}
 	
 	@Override
