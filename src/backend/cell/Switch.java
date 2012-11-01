@@ -19,6 +19,11 @@ public class Switch extends Floor {
 	
 	@Override
 	public void receiveMovable(Movable movable) {
+		/*
+		 * Tradeoff entre una linea de codigo imperativa y ensuciar
+		 * la jerarquia de claes de movable.
+		 * @see Informe
+		 */
 		if (movable instanceof IceCube)
 			this.destination.show();
 		
@@ -28,6 +33,7 @@ public class Switch extends Floor {
 	@Override
 	public Movable releaseMovable() {
 		this.destination.hide();
+		
 		return super.releaseMovable();
 	}
 	

@@ -18,16 +18,14 @@ public class IceCube extends Movable {
 	public boolean move(Direction direction) {
 		
 		boolean moved = false;
-		boolean couldMove = false;
 		
-		while (moved = super.move(direction)) {
-			if (moved)
-				couldMove = true;
+		while (super.move(direction)) {
+			moved = true;
 			if (melted)
 				break;
 		}
 		
-		return couldMove;
+		return moved;
 	}
 
 	@Override

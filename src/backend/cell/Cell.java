@@ -6,7 +6,7 @@ import java.awt.Point;
 
 public abstract class Cell {
 
-	protected Point position;
+	private Point position;
 	
 	public Cell(Point position) {
 		this.position = position;
@@ -23,8 +23,11 @@ public abstract class Cell {
 
 	
 	/**
-	 * Testing method. Delete later.	
-	 * @return
+	 * El metodo devuelve un String que caracteriza a la celda.
+	 * Sirve para propositos de debug, de modo de dibujar un mapa en
+	 * consola.
+	 * @deprecated Testing method. Delete later.
+	 * @return String que caracteriza a la celda
 	 */
 	public abstract String idCharacter();
 	

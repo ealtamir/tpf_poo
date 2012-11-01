@@ -1,7 +1,6 @@
 package backend.movable;
 
 import backend.board.Board;
-import backend.board.InconsistentBoardStateException;
 import backend.board.InvalidPositionException;
 import backend.cell.Cell;
 
@@ -11,27 +10,24 @@ import backend.board.Direction;
 
 public abstract class Movable {
 	
-	protected Point position;
-	protected Board board;
+	private Point position;
+	private Board board;
 	
 	public Movable(Board board, Point position) {
 		this.board = board;
 		this.position = position;
-		
-		try {
-			board.getCell(this.position).receiveMovable(this);
-		} catch (InvalidPositionException e) {
-			throw new InconsistentBoardStateException();
-		}
 	}
 	
 	public boolean move(Direction direction) {
 		
-		Cell currentCell = null;
+		Cell currentCell = this.board.getCell(this.position);
 		Cell targetCell = null;
 		
+		/*
+		 * Podria ocurrir que intentaramos movernos hacia una posicion invalida
+		 * y que no sea un error fatal.
+		 */
 		try {
-			currentCell = this.board.getCell(this.position);
 			targetCell = this.board.getCell(direction.increment(this.position));
 		}
 		catch (InvalidPositionException e) {
@@ -51,6 +47,10 @@ public abstract class Movable {
 	
 	public Point getPosition() {
 		return this.position;
+	}
+	
+	public Board getBoard() {
+		return this.board;
 	}
 	
 	public abstract String idCharacter();

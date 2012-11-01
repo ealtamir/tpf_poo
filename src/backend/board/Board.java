@@ -24,13 +24,12 @@ public class Board {
 	 * Devuelve una referencia a la celda en la posicion Point(x, y) 
 	 * @param p Point(x, y)
 	 * @return Referencia a la celda en la posicion Point(x, y)
-	 * @throws InvalidPositionException
 	 */
-	public Cell getCell(Point p) throws InvalidPositionException {
+	public Cell getCell(Point p) {
 		return this.getCell(p.x, p.y);
 	}
 	
-	public Cell getCell(int x, int y) throws InvalidPositionException {
+	public Cell getCell(int x, int y) {
 		if (this.validPosition(x, y)) {
 			return this.terrain[x][y];
 		} else {
@@ -38,11 +37,11 @@ public class Board {
 		}
 	}
 	
-	public void setCell(Point p, Cell cell) throws InvalidPositionException {
+	public void setCell(Point p, Cell cell) {
 		this.setCell(p.x, p.y, cell);
 	}
 	
-	public void setCell(int x, int y, Cell cell) throws InvalidPositionException {
+	public void setCell(int x, int y, Cell cell) {
 		if (this.validPosition(x, y)) {
 			this.terrain[x][y] = cell;
 		} else {
@@ -54,10 +53,6 @@ public class Board {
 	private boolean validPosition(int x, int y) {
 		return (x >= 0 && y >= 0 && y < this.height && x < this.width);
 	}
-	
-
-	
-	
 
 	
 	public void print() {

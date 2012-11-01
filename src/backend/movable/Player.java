@@ -13,15 +13,20 @@ public class Player extends Movable {
 	
 	public boolean move(Direction dir) {
 		
-		Point nextPosition = dir.increment(position);
+		Point nextPosition = dir.increment(this.getPosition());
 		
 		Movable targetMovable = null;
 		
 		try {
-			targetMovable = board.getCell(nextPosition).getMovable();
+			targetMovable = this.getBoard().getCell(nextPosition).getMovable();
 		}
 		catch (InvalidPositionException e) {
-			return false; // No podemos movernos si la siguiente posicion es invalida.
+			/*
+			 * Si la posicion a la que queremos movernos es invalida,
+			 * abortamos todo el proceso, pues no puede haber ningun Movable
+			 * tampoco.
+			 */
+			return false;
 		}
 		
 		if (targetMovable != null)

@@ -4,6 +4,13 @@ import backend.movable.Movable;
 
 import java.awt.Point;
 
+
+/**
+ * La celda de tipo Water no puede contener un movable, pero sin embargo
+ * es ocupable. Cuando un movable se posiciona sobre esta celda es como si
+ * desapareciera del registro de movables en el tablero del juego.
+ */
+
 public class Water extends Cell {
 	
 	public Water(Point position) {
