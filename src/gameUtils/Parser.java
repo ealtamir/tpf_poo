@@ -19,10 +19,12 @@ public class Parser {
 		BufferedReader inStream = null;
 	
 		try{
+			//	char[] lineParts = null;
 			inStream = new BufferedReader(new FileReader(f));
 			String line = inStream.readLine();
-			char[] lineParts = null;
 			int columns = line.length();
+			
+			inStream = new BufferedReader(new FileReader(f));
 			int rows = 1;
 			
 			/* Count rows */
@@ -32,7 +34,7 @@ public class Parser {
 				}
 			}
 			/* Makes sure the level has a reasonable minimal space*/
-			if ( rows < 5 || columns < 5){
+			if ( rows < 4 || columns < 4){
 				throw new InvalidFileException("Rows or columns go out of bounds. Both must be 5 or greater.");					
 			}
 			
