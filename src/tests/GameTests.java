@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 
-import gameUtils.Parser;
+import frontend.Parser;
 
 import org.junit.Test;
 

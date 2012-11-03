@@ -44,7 +44,11 @@ public class StartGame implements ActionListener {
 						game
 				);
 			} catch (Exception exception) {
-				JOptionPane.showMessageDialog(gameScreen, "Error al intentar cargar el mapa.");
+				if (exception.getMessage() == null) {
+					JOptionPane.showMessageDialog(gameScreen, "Error al intentar cargar el mapa.");
+				} else {
+					JOptionPane.showMessageDialog(gameScreen, exception.getMessage());
+				}
 				exception.printStackTrace();
 			}
 		}
