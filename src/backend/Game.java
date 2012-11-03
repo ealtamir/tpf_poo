@@ -8,11 +8,11 @@ public class Game {
 	private Board board;
 	private Player player;
 	
-//	public Game(Board board, Point startPosition) {
-//		this.board = board;
-//		this.player = new Player(this, startPosition);
-//		this.player.insert();
-//	}
+	public Game(Board board, Point startPosition) {
+		this.board = board;
+		this.player = new Player(this, board, startPosition);
+		this.player.insert();
+	}
 	
 	public Game(){
 		

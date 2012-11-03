@@ -1,4 +1,4 @@
-package gameUtils;
+package frontend;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,7 +12,7 @@ import backend.Game;
 import backend.movable.*;
 
 public class Parser {
-	public Game parse(File f) throws Exception{
+	public Game parse(File f) throws Exception {
 		Game parsedGame = new Game();
 		Board parsedBoard;
 		Player parsedPlayer = null;
@@ -107,16 +107,5 @@ public class Parser {
 			parsedBoard.setCell(new Point(0,j), new Tree(new Point(0,j)));
 			parsedBoard.setCell(new Point(rows-1 ,j), new Tree(new Point(rows-1 ,j)));
 		}
-	}
-	
-	private static class InvalidFileException extends Exception	{
-		private static final long serialVersionUID = 1L;
-		InvalidFileException(){
-		}
-		
-		InvalidFileException(String msg){
-			super(msg);
-		}
-		
 	}
 }
