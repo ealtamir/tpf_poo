@@ -1,7 +1,10 @@
 package tests;
 
 
+import gameUtils.Parser;
+
 import java.awt.Point;
+import java.io.File;
 
 import backend.board.*;
 import backend.movable.*;
@@ -15,8 +18,22 @@ public class Tester {
 	 */
 	public static void main(String[] args) {
 		
-		Game testGame = new BasicTestGame();
-		Player player = testGame.getPlayer();
+		// Game testGame = new BasicTestGame();
+		// Player player = testGame.getPlayer();
+		Game parsedGame;
+
+		try{
+			File f = new File(new File(".").getCanonicalPath() + File.separator + "src" + File.separator
+					+ "tests" + File.separator + "testmap");
+		parsedGame = (new Parser()).parse(f);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return;
+			
+		}
+		
+		Player player = parsedGame.getPlayer();
 
 		player.move(Direction.EAST);
 		player.move(Direction.EAST);
@@ -57,7 +74,7 @@ public class Tester {
 //		player.move(Direction.NORTH);
 //		player.move(Direction.NORTH);
 		
-		testGame.getBoard().cellsAccept(new TestPrintCellVisitor());
+//		testGame.getBoard().cellsAccept(new TestPrintCellVisitor());
 		
 		//testGame.getBoard().print();
 		
