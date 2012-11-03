@@ -10,8 +10,9 @@ import org.junit.Test;
 
 import backend.board.Direction;
 import backend.Game;
-import backend.movable.Player;
-import backend.board.*;
+import backend.cell.*;
+import backend.movable.*;
+
 public class GameTests {
 	Game game;
 	Parser parser = new Parser();
@@ -48,10 +49,9 @@ public class GameTests {
 		game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels"  + File.separator + "surroundedByBoxes.lvl"));
 			player = game.getPlayer();
 			
-			if(game.getBoard().getCell(player.getPosition().y-1, player.getPosition().x).isOccupiable() ||
-				!game.getBoard().getCell(player.getPosition().y-2, player.getPosition().x).isOccupiable()){
-					throw new Exception("Invalid testing board. There is no box on the upward cell from where the player is standing.");
- 			}
+			if(playerIsSurroundedByBoxes(game)){
+				throw new Exception("Invalid testing board.");
+			}
  			
  			player.move(Direction.NORTH);
  			assertTrue(game.getBoard().getCell(player.getPosition().x+1, player.getPosition().y).isOccupiable());
@@ -88,6 +88,22 @@ public class GameTests {
  			assertTrue(!game.getBoard().getCell(player.getPosition().x, player.getPosition().y-1).isOccupiable());	
  			
  }
+	/**
+	 * Checks if the player is surrounded by boxes, and if next to the boxes there is available space to move
+	 *
+	 * @param game
+	 * @return true if the game is the correct one for the test, false otherwise.
+	 */
+	 private boolean playerIsSurroundedByBoxes(Game game){
+		 return !((game.getBoard().getCell(player.getPosition().x, player.getPosition().y+1).getMovable() instanceof Box) &&
+				 game.getBoard().getCell(player.getPosition().x, player.getPosition().y+2).isOccupiable() &&
+			(game.getBoard().getCell(player.getPosition().x, player.getPosition().y-1).getMovable() instanceof Box) &&
+			game.getBoard().getCell(player.getPosition().x, player.getPosition().y-2).isOccupiable() &&
+				(game.getBoard().getCell(player.getPosition().x+1, player.getPosition().y).getMovable() instanceof Box) &&
+				game.getBoard().getCell(player.getPosition().x+2, player.getPosition().y).isOccupiable() &&
+						(game.getBoard().getCell(player.getPosition().x-1, player.getPosition().y).getMovable() instanceof Box) &&
+						game.getBoard().getCell(player.getPosition().x-2, player.getPosition().y).isOccupiable());
+	 }
  
  @Test
  public void playerCantMoveBoxIntoTree() throws Exception{
@@ -163,12 +179,10 @@ public class GameTests {
 	player = game.getPlayer();
 	
 	
-		if(game.getBoard().getCell(player.getPosition().x, player.getPosition().y+1).isOccupiable() ||
-			game.getBoard().getCell(player.getPosition().x, player.getPosition().y-1).isOccupiable() ||
-			game.getBoard().getCell(player.getPosition().x+1, player.getPosition().y).isOccupiable() ||
-			game.getBoard().getCell(player.getPosition().x-1, player.getPosition().y).isOccupiable()){
-				throw new Exception("Invalid testing board. There is no box on the upward cell from where the player is standing.");
+		if(!playerIsSurroundedByTrees(game)) {
+				throw new Exception("Invalid testing board. Player isn't surrounded by trees.");
 		}
+		
 		player.move(Direction.NORTH);
 		assertTrue(!game.getBoard().getCell(player.getPosition().x, player.getPosition().y).isOccupiable());
 		player.move(Direction.SOUTH);
@@ -179,25 +193,67 @@ public class GameTests {
 		assertTrue(!game.getBoard().getCell(player.getPosition().x, player.getPosition().y).isOccupiable());
 }
 
+ private boolean playerIsSurroundedByTrees(Game game){
+	 return (game.getBoard().getCell(player.getPosition().x, player.getPosition().y+1) instanceof Tree) ||
+				(game.getBoard().getCell(player.getPosition().x, player.getPosition().y-1) instanceof Tree) ||
+				game.getBoard().getCell(player.getPosition().x+1, player.getPosition().y) instanceof Tree ||
+				game.getBoard().getCell(player.getPosition().x-1, player.getPosition().y) instanceof Tree;
+ }
+ 
+ /* Test highly depends on the level to be loaded since cell coordinates are hardcoded. */
  public void iceCubeMovesToLastPossiblePlace() throws Exception{
 	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels"  + File.separator + "iceCubeMovementTest.lvl"));
 	 player = game.getPlayer();
 	 
+	 // TODO chequeo de que el lvl cargado es el correcto.
+	 assertTrue(game.getBoard().getCell(2,4).isOccupiable());
+	 player.move(Direction.NORTH);
+	 assertTrue(!game.getBoard().getCell(2,4).isOccupiable());
+	 player.move(Direction.SOUTH);
 	 
+	 assertTrue(game.getBoard().getCell(9,4).isOccupiable());
+	 player.move(Direction.SOUTH);
+	 assertTrue(!game.getBoard().getCell(9,4).isOccupiable());
+	 player.move(Direction.NORTH);
+	 
+	 assertTrue(game.getBoard().getCell(6,8).isOccupiable());
+	 player.move(Direction.EAST);
+	 assertTrue(!game.getBoard().getCell(6,8).isOccupiable());
+	 player.move(Direction.WEST);
+	 
+	 assertTrue(game.getBoard().getCell(6,2).isOccupiable());
+	 player.move(Direction.WEST);
+	 assertTrue(!game.getBoard().getCell(6,2).isOccupiable());
  }
-// 
+ 
+ 
+ @Test
+ public void gameEndsWhenPlayerFallsInTheWater() throws Exception{
+	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels"  + File.separator + "surroundedByWater.lvl"));
+	 player = game.getPlayer();
+	 
+	 player.move(Direction.NORTH);
+	// assertTrue(game.loseConditions()); 
+	// TODO modificar el assert de arriba con la linea correcta que indica si se perdio el juego
+	 }
+@Test
+ public void iceCubeDisappearsWhenFallingIntoWater() throws Exception{
+	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels"  + File.separator + "waterInCubesPath.lvl"));
+	 player = game.getPlayer();
+	 
+	 player.move(Direction.EAST);
+	 /*Checks that the ice cube is not on the cell before the water, nor after.*/
+	 assertTrue(game.getBoard().getCell(2, 6).isOccupiable());
+	 assertTrue(game.getBoard().getCell(2, 8).isOccupiable());
+ }
+ 
+ @Test(expected=Exception.class)
+ public void parserThrowsExceptionIfTwoPlayersAreFound() throws Exception{
+	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels"  + File.separator + "twoPlayers.lvl"));
+ }
+ 
 // @Test
-// public void gameEndsWhenPlayerFallsIntoHole() throws Exception{
-//	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "src"  + File.separator +
-//					"tests" + File.separator + "playerSurroundedByHoles.lvl"));
-//	 player = game.getPlayer();
-//	 
-//	 player.move(Direction.NORTH);
-//	 assertTrue(game.loseConditions());
-// }
-// 
-// @Test
-// public void gameEndsWhenWinConditionsAreFulfilled() throws Exception{
+// public void gameEndsWhenPlayerIsInDestination() throws Exception{
 //	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "src"  + File.separator +
 //					"tests" + File.separator + "winConditionsTestBoard.lvl"));
 //	 
@@ -206,21 +262,8 @@ public class GameTests {
 //	 game.getPlayer().move(Direction.SOUTH);
 //	 assertTrue(game.winConditions());
 // }
-//
-// @Test
-// public void gameEndsWhenBombBoxExplodes() throws Exception{
-//	 game = parser.parse(new File("src/tests/playerSurroundedBy1StepBombs.lvl"));
-//	 player = game.getPlayer();
-//	 
-//	 player.move(Direction.NORTH);
-//	 assertTrue(game.loseConditions());
-// }
 //	
-// @Test(expected=Exception.class)
-// public void parserThrowsExceptionIfTwoPlayersAreFound() throws Exception{
-//	parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "src"  + File.separator +
-//			"tests" + File.separator + "twoPlayers.lvl"));
-// }
+
  
 // @Test(expected=Exception.class)
 // public void parserThrowsExceptionIfLowerBoundsArentRespected() throws Exception{

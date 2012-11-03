@@ -52,23 +52,26 @@ public class Parser {
 				for(int col = 1; col < columns+1; col++){
 					Point position = new Point(row,col);
 					switch(dividedLine[col-1]){
-					case 'T': parsedBoard.setCell(position, new Tree(position));
+					case 'T': 	parsedBoard.setCell(position, new Tree(position));
 						break;
-					case 'B': parsedBoard.setCell(position, new Floor(new Box(parsedBoard, position),position ));
+					case 'B': 	parsedBoard.setCell(position, new Floor(new Box(parsedBoard, position),position ));
 						break;
-					case 'C': parsedBoard.setCell(position, new Floor(new IceCube(parsedBoard, position),position ));
+					case 'C': 	parsedBoard.setCell(position, new Floor(new IceCube(parsedBoard, position),position ));
 						break;
-					case 'K': parsedBoard.setCell(position, new Switch(position));
+					case 'K': 	parsedBoard.setCell(position, new Switch(position));
 						break;
-					case '@': parsedBoard.setCell(position, new Floor(parsedPlayer = new Player(parsedGame, parsedBoard, position),position));
+					case '@': 	if(parsedPlayer != null){
+									throw new InvalidFileException("Level contains more than one player.");
+								}
+								parsedBoard.setCell(position, new Floor(parsedPlayer = new Player(parsedGame, parsedBoard, position),position));
 						break;
-					case 'G': parsedBoard.setCell(new Point(row,col), new Destination(new Point(row,col)));
+					case 'G': 	parsedBoard.setCell(new Point(row,col), new Destination(new Point(row,col)));
 						break;
-					case '#': parsedBoard.setCell(new Point(row,col), new Water(new Point(row,col)));
+					case '#': 	parsedBoard.setCell(new Point(row,col), new Water(new Point(row,col)));
 						break;
-					case ' ': parsedBoard.setCell(position, new Floor(position));
+					case ' ': 	parsedBoard.setCell(position, new Floor(position));
 						break;
-					default: throw new InvalidFileException("Some line contains an invalid character.");
+					default: 	throw new InvalidFileException("Some line contains an invalid character.");
 					}	
 				}
 				line = inStream.readLine();
