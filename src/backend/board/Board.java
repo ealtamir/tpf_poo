@@ -60,5 +60,12 @@ public class Board {
 				this.getCell(x, y).accept(visitor);
 	}
 	
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
 
 }
