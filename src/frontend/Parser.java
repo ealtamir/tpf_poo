@@ -38,20 +38,19 @@ public class Parser {
 				throw new InvalidFileException("Rows or columns go out of bounds. Both must be 5 or greater.");					
 			}
 			
-			parsedBoard = new Board(rows+2, columns+2);
-			initializeBoard(rows+2, columns+2, parsedBoard);
-			
+			parsedBoard = new Board(rows, columns);
+		
 			inStream = new BufferedReader(new FileReader(f));
 			line = inStream.readLine();
-			for(int row = 1; line != null && line.length() == columns; row++){
+			for(int row = 0; line != null && line.length() == columns; row++){
 				if(line.length() != columns){
 					throw new InvalidFileException("Some line contains more columns than the others.");
 				}
 				
 				char[] dividedLine = line.toCharArray();
-				for(int col = 1; col < columns+1; col++){
-					Point position = new Point(row,col);
-					switch(dividedLine[col-1]){
+				for(int col = 0; col < columns ; col++){
+					Point position = new Point(col,row);
+					switch(dividedLine[col]){
 					case 'T': 	parsedBoard.setCell(position, new Tree(position));
 						break;
 					case 'B': 	parsedBoard.setCell(position, new Floor(new Box(parsedBoard, position),position ));
@@ -92,25 +91,5 @@ public class Parser {
 			}
 		}
 
-	}
-	/** Initializes a board filling the extreme rows and cols with Trees
-	 * and the rest of the cells with floors.
-	 */
-	private void initializeBoard(int rows, int cols, Board parsedBoard){
-		for(int i = 1; i < rows-1; i++){  
-			for(int j = 1; j < cols-1; j++){
-				parsedBoard.setCell(new Point(i,j), new Floor(null, new Point(i,j)));
-			}
-		}
-		
-		for(int i = 0; i < rows; i++){
-			parsedBoard.setCell(new Point(i,0), new Tree(new Point(i,0)));
-			parsedBoard.setCell(new Point(i,cols-1), new Tree(new Point(i,cols-1)));
-		}
-		
-		for(int j = 1; j < cols-1; j++){
-			parsedBoard.setCell(new Point(0,j), new Tree(new Point(0,j)));
-			parsedBoard.setCell(new Point(rows-1 ,j), new Tree(new Point(rows-1 ,j)));
-		}
-	}
+	}	
 }
