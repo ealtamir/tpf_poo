@@ -12,7 +12,7 @@ public class Floor extends Cell {
 		super(position);
 		this.movable = movable;		
 	}
-	
+		
 	public Floor(Point position) {
 		super(position);
 		this.movable = null;

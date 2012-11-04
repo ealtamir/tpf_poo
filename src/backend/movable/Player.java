@@ -8,12 +8,13 @@ import backend.board.*;
 
 public class Player extends Movable {
 	
-	private Game game;
+	private Game game; // TODO ver si realmente es necesario game.
 	
-	public Player(Game game, Point position){
-		super(game.getBoard(), position);
+	public Player(Game game, Board board, Point position){
+		super(board, position);
 		this.game = game;
 	}
+		
 	
 	public boolean move(Direction dir) {
 		

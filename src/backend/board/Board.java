@@ -6,18 +6,18 @@ import backend.cell.*;
 public class Board {
 	
 	private Cell terrain[][];
-	private int width;
-	private int height;
+	private int columns;
+	private int rows;
 	
 	/**
 	 * Crea un tablero nuevo de alto height y ancho width.
 	 * @param width Ancho del tablero
-	 * @param height Alto del tabler
+	 * @param rows Alto del tabler
 	 */
-	public Board(int width, int height) {
-		this.terrain = new Cell[width][height];
-		this.width = width;
-		this.height = height;
+	public Board(int rows, int columns) {
+		this.terrain = new Cell[rows][columns];
+		this.columns = columns;
+		this.rows = rows;
 	}
 	
 	/**
@@ -26,39 +26,46 @@ public class Board {
 	 * @return Referencia a la celda en la posicion Point(x, y)
 	 */
 	public Cell getCell(Point p) {
-		return this.getCell(p.x, p.y);
+		return this.getCell(p.y, p.x);
 	}
 	
-	public Cell getCell(int x, int y) {
-		if (this.validPosition(x, y)) {
-			return this.terrain[x][y];
+	public Cell getCell(int row, int column) {
+		if (this.validPosition(row, column)) {
+			return this.terrain[row][column];
 		} else {
-			throw new InvalidPositionException(this, new Point(x, y));
+			throw new InvalidPositionException(this, new Point(row, column));
 		}
 	}
 	
 	public void setCell(Point p, Cell cell) {
-		this.setCell(p.x, p.y, cell);
+		this.setCell(p.y, p.x, cell);
 	}
 	
-	public void setCell(int x, int y, Cell cell) {
-		if (this.validPosition(x, y)) {
-			this.terrain[x][y] = cell;
+	public void setCell(int row, int column, Cell cell) {
+		if (this.validPosition(row, column)) {
+			this.terrain[row][column] = cell;
 		} else {
-			throw new InvalidPositionException(this, new Point(x, y));
+			throw new InvalidPositionException(this, new Point(column, row));
 		}
 	}
 	
-	private boolean validPosition(int x, int y) {
-		return (x >= 0 && y >= 0 && y < this.height && x < this.width);
+	private boolean validPosition(int row, int column) {
+		return (column >= 0 && row >= 0 && row < this.rows && column < this.columns);
 	}
 
 	
 	public void cellsAccept(CellVisitor visitor) {
-		for (int y = 0; y < this.height; y++)
-			for (int x = 0; x < this.width; x++)
+		for (int y = 0; y < this.rows; y++)
+			for (int x = 0; x < this.columns; x++)
 				this.getCell(x, y).accept(visitor);
 	}
 	
+	public int getWidth() {
+		return columns;
+	}
+
+	public int getHeight() {
+		return rows;
+	}
 
 }

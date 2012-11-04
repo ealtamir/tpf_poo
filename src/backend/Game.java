@@ -10,8 +10,20 @@ public class Game {
 	
 	public Game(Board board, Point startPosition) {
 		this.board = board;
-		this.player = new Player(this, startPosition);
+		this.player = new Player(this, board, startPosition);
 		this.player.insert();
+	}
+	
+	public Game(){
+		
+	}
+	
+	public void setBoard(Board board){
+		this.board = board;
+	}
+	
+	public void setPlayer(Player player){
+		this.player = player;
 	}
 	
 	public Game(Board board, Player player) {
