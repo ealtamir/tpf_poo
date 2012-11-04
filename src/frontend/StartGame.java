@@ -50,6 +50,7 @@ public class StartGame implements ActionListener {
 					JOptionPane.showMessageDialog(gameScreen, exception.getMessage());
 				}
 				exception.printStackTrace();
+				gameScreen.setVisible(true);
 			}
 		}
 	}
