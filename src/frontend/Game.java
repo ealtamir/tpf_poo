@@ -59,10 +59,11 @@ public class Game extends JFrame
 	private Image box;
 	
 	
-	public Game(String windowTitle, int rows, int columns, backend.Game game) {
+	public Game(String windowTitle, int rows, int columns, backend.Game game, JMenuBar menuBar) {
 		this.game = game;
-		width = CELL_SIZE * (columns + 1);
-		height = CELL_SIZE * (rows + 1);
+		// Cantidad que sumo para que quede alineado el panel con el frame.
+		width = CELL_SIZE * columns + 22 + 22; // 22 es la altura del menubar.
+		height = CELL_SIZE * rows; 
 		this.cols = columns;
 		this.rows = rows;
 		
@@ -72,13 +73,15 @@ public class Game extends JFrame
 		movesMap.put(KeyEvent.VK_LEFT, Direction.WEST);
 		movesMap.put(KeyEvent.VK_RIGHT, Direction.EAST);
 		
-		setLayout(null);
+		//setLayout(null);
 		loadGraphics();
 		setResizable(false);
 		setSize(height, width);
+		setLocationRelativeTo(null);
+		setJMenuBar(menuBar);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+		menuBar.setVisible(true);
 		addKeyListener(this);
 		
 	}
@@ -135,7 +138,6 @@ public class Game extends JFrame
 				|| keyCode == KeyEvent.VK_RIGHT )) {
 			game.getPlayer().move(movesMap.get(keyCode));
 			drawBoard();
-			System.out.println("pressed key.");
 			KEY_PRESSED = keyCode;
 		}
 	}
