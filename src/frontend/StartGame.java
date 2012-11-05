@@ -43,8 +43,8 @@ public class StartGame implements ActionListener {
 				gameScreen.setVisible(false);
 				Game gameGraphics = new Game(
 						"Silversphere", 
-						game.getBoard().getWidth(),
 						game.getBoard().getHeight(),
+						game.getBoard().getWidth(),
 						game,
 						createMenuBar()
 				);

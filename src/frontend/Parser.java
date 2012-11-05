@@ -42,7 +42,7 @@ public class Parser {
 		
 			inStream = new BufferedReader(new FileReader(f));
 			line = inStream.readLine();
-			for(int row = 0; line != null && line.length() == columns; row++){
+			for(int row = 0; row < rows && line.length() == columns; row++){
 				if(line.length() != columns){
 					throw new InvalidFileException("Some line contains more columns than the others.");
 				}
@@ -64,9 +64,9 @@ public class Parser {
 								}
 								parsedBoard.setCell(position, new Floor(parsedPlayer = new Player(parsedGame, parsedBoard, position),position));
 						break;
-					case 'G': 	parsedBoard.setCell(new Point(row,col), new Destination(new Point(row,col)));
+					case 'G': 	parsedBoard.setCell(position, new Destination(position));
 						break;
-					case '#': 	parsedBoard.setCell(new Point(row,col), new Water(new Point(row,col)));
+					case '#': 	parsedBoard.setCell(position, new Water(position));
 						break;
 					case ' ': 	parsedBoard.setCell(position, new Floor(position));
 						break;

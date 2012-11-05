@@ -198,29 +198,30 @@ public class GameTests {
  }
  
  /* Test highly depends on the level to be loaded since cell coordinates are hardcoded. */
+ @Test
  public void iceCubeMovesToLastPossiblePlace() throws Exception{
 	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels"  + File.separator + "iceCubeMovementTest.lvl"));
 	 player = game.getPlayer();
 	 
 	 // TODO chequeo de que el lvl cargado es el correcto.
-	 assertTrue(game.getBoard().getCell(2,4).isOccupiable());
+	 assertTrue(game.getBoard().getCell(1,3).isOccupiable());
 	 player.move(Direction.NORTH);
-	 assertTrue(!game.getBoard().getCell(2,4).isOccupiable());
+	 assertTrue(!game.getBoard().getCell(1,3).isOccupiable());
 	 player.move(Direction.SOUTH);
 	 
-	 assertTrue(game.getBoard().getCell(9,4).isOccupiable());
+	 assertTrue(game.getBoard().getCell(8,3).isOccupiable());
 	 player.move(Direction.SOUTH);
-	 assertTrue(!game.getBoard().getCell(9,4).isOccupiable());
+	 assertTrue(!game.getBoard().getCell(8,3).isOccupiable());
 	 player.move(Direction.NORTH);
 	 
-	 assertTrue(game.getBoard().getCell(6,8).isOccupiable());
+	 assertTrue(game.getBoard().getCell(5,7).isOccupiable());
 	 player.move(Direction.EAST);
-	 assertTrue(!game.getBoard().getCell(6,8).isOccupiable());
+	 assertTrue(!game.getBoard().getCell(5,7).isOccupiable());
 	 player.move(Direction.WEST);
 	 
-	 assertTrue(game.getBoard().getCell(6,2).isOccupiable());
+	 assertTrue(game.getBoard().getCell(5,1).isOccupiable());
 	 player.move(Direction.WEST);
-	 assertTrue(!game.getBoard().getCell(6,2).isOccupiable());
+	 assertTrue(!game.getBoard().getCell(5,1).isOccupiable());
  }
  
  
@@ -240,8 +241,8 @@ public class GameTests {
 	 
 	 player.move(Direction.EAST);
 	 /*Checks that the ice cube is not on the cell before the water, nor after.*/
-	 assertTrue(game.getBoard().getCell(2, 6).isOccupiable());
-	 assertTrue(game.getBoard().getCell(2, 8).isOccupiable());
+	 assertTrue(game.getBoard().getCell(2, 5).isOccupiable());
+	 assertTrue(game.getBoard().getCell(2, 7).isOccupiable());
  }
  
  @Test(expected=Exception.class)

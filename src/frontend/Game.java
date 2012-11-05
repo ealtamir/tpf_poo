@@ -111,9 +111,9 @@ public class Game extends JFrame
 	
 	private void drawBoard() {
 		backend.board.Board board = game.getBoard();
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				backend.cell.Cell cell = board.getCell(new Point(i, j));
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < cols; col++) {
+				backend.cell.Cell cell = board.getCell(new Point(col, row));
 				cell.accept(this);
 				if( cell.getMovable() != null ) {
 					cell.getMovable().accept(this);
