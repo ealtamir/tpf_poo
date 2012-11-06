@@ -5,7 +5,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +40,11 @@ public class Game extends JFrame
 		Observer {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private static final int CELL_SIZE = 30;
 	private Map<Integer, Direction> movesMap;
 	private int KEY_PRESSED = 0;
@@ -60,7 +65,6 @@ public class Game extends JFrame
 	private Image tree; 
 	private Image shallowWater;
 	private Image floor;
-	private Image wall;
 	private Image box;
 	
 	
@@ -93,15 +97,15 @@ public class Game extends JFrame
 	
 	private void loadGraphics() {
 		try {
-			player 		= ImageUtils.loadImage("resources/player.png");
-			water 		= ImageUtils.loadImage("resources/water.png");
-			iceCube 	= ImageUtils.loadImage("resources/ice-box.png");
-			swtch 		= ImageUtils.loadImage("resources/ice-box-target.png");
-			destination = ImageUtils.loadImage("resources/target.png");
-			tree 		= ImageUtils.loadImage("resources/tree.png");
-			wall 		= ImageUtils.loadImage("resources/wall.png");
-			floor 		= ImageUtils.loadImage("resources/cell.png");
-			box 		= ImageUtils.loadImage("resources/box.png");
+			player 		= ImageUtils.loadImage("resources" + File.separator + "player.png");
+			water 		= ImageUtils.loadImage("resources" + File.separator + "water.png");
+			iceCube 	= ImageUtils.loadImage("resources" + File.separator + "ice-box.png");
+			swtch 		= ImageUtils.loadImage("resources" + File.separator + "ice-box-target.png");
+			destination = ImageUtils.loadImage("resources" + File.separator + "target.png");
+			tree 		= ImageUtils.loadImage("resources" + File.separator + "tree.png");
+			ImageUtils.loadImage("resources" + File.separator + "wall.png");
+			floor 		= ImageUtils.loadImage("resources" + File.separator + "cell.png");
+			box 		= ImageUtils.loadImage("resources" + File.separator + "box.png");
 		} catch(IOException e) {
 			System.out.println("No se puedo cargar un archivo.");
 			e.printStackTrace();
@@ -225,4 +229,5 @@ public class Game extends JFrame
 			repaint();
 		}
 	}
+
 }

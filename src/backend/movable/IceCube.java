@@ -7,6 +7,11 @@ import java.awt.Point;
 
 public class IceCube extends Movable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private boolean melted = false;
 	
 	public IceCube(Board board, Point position) {

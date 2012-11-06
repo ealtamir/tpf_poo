@@ -19,6 +19,7 @@ public class Parser {
 	final private int MINIMUM_ROWS = 5;
 	final private int MINIMUM_COLS = 5;
 	
+	@SuppressWarnings("resource")
 	public Game parse(File f) throws Exception {
 		Game parsedGame = new Game();
 		Board parsedBoard;

@@ -4,6 +4,9 @@ bin
 # Ignorar todos los archivos compilados
 bin
 
+# ignorar los juegos salvados
+saved_games
+
 # Package Files #
 *.jar
 *.war

@@ -8,6 +8,11 @@ import backend.board.*;
 
 public class Player extends Movable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Game game; // TODO ver si realmente es necesario game.
 	
 	public Player(Game game, Board board, Point position){

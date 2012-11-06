@@ -1,9 +1,7 @@
 package frontend;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,11 +11,14 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class LoadPanel extends JPanel {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private final int width = 200;
 	private final int height = 200;

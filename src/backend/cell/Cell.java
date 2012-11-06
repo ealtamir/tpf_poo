@@ -5,9 +5,14 @@ import backend.movable.*;
 import general.observer.Observable;
 
 import java.awt.Point;
+import java.io.Serializable;
 
-public abstract class Cell extends Observable {
+public abstract class Cell extends Observable implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Point position;
 	
 	public Cell(Point position) {

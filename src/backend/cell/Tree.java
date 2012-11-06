@@ -6,6 +6,11 @@ import backend.movable.Movable;
 
 public class Tree extends Cell {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Tree(Point position) {
 		super(position);
 	}
