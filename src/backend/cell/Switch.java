@@ -24,7 +24,7 @@ public class Switch extends Floor {
 		 * la jerarquia de claes de movable.
 		 * @see Informe
 		 */
-		if (movable instanceof IceCube)
+		if (movable instanceof IceCube && this.destination != null)
 			this.destination.show();
 		
 		super.receiveMovable(movable);
@@ -32,7 +32,9 @@ public class Switch extends Floor {
 	
 	@Override
 	public Movable releaseMovable() {
-		this.destination.hide();
+		
+		if (this.destination != null)
+			this.destination.hide();
 		
 		return super.releaseMovable();
 	}

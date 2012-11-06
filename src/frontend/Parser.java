@@ -1,10 +1,13 @@
 package frontend;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileReader;
 
 import java.awt.Point;
+
+import java.util.Stack;
 
 import backend.board.*;
 import backend.cell.*;
@@ -20,7 +23,11 @@ public class Parser {
 		Game parsedGame = new Game();
 		Board parsedBoard;
 		Player parsedPlayer = null;
+		Destination parsedDestination = null;
 		BufferedReader inStream = null;
+		Stack<Switch> switchStack = new Stack<Switch>();
+		
+		
 	
 		try{
 			//	char[] lineParts = null;
@@ -63,14 +70,26 @@ public class Parser {
 						break;
 					case 'C': 	parsedBoard.setCell(position, new Floor(new IceCube(parsedBoard, position),position ));
 						break;
-					case 'K': 	parsedBoard.setCell(position, new Switch(position));
+					case 'K': 	
+						Switch newSwitch = new Switch(position);
+						switchStack.push(newSwitch);
+						parsedBoard.setCell(position, newSwitch);
 						break;
 					case '@': 	if(parsedPlayer != null){
 									throw new InvalidFileException("Level contains more than one player.");
 								}
 								parsedBoard.setCell(position, new Floor(parsedPlayer = new Player(parsedGame, parsedBoard, position),position));
 						break;
-					case 'G': 	parsedBoard.setCell(position, new Destination(position));
+					case 'G': 	
+						
+						if (parsedDestination == null) {
+							parsedDestination = new Destination(position);
+							parsedBoard.setCell(position, parsedDestination);
+						}
+						else {
+							throw new InvalidFileException("Level contains more than one destination.");
+						}
+						
 						break;
 					case '#': 	parsedBoard.setCell(position, new Water(position));
 						break;
@@ -80,6 +99,18 @@ public class Parser {
 					}	
 				}
 				line = inStream.readLine();
+			}
+			
+			/*
+			 * Connect loaded switches to destination.
+			 */
+			if (parsedDestination != null) {
+				while (!switchStack.empty()) {
+					switchStack.pop().setDestination(parsedDestination);
+				}
+			}
+			else {
+				throw new InvalidFileException("Level contains no destination.");
 			}
 			
 			parsedGame.setBoard(parsedBoard);

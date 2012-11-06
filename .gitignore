@@ -1,4 +1,5 @@
 *.class
+bin
 
 # Ignorar todos los archivos compilados
 bin
