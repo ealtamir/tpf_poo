@@ -79,6 +79,8 @@ public class StartGame implements ActionListener {
 		reset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				currentGameGraphics.setVisible(false);
+				currentGameGraphics = null;
 				startGameFromLevel();
 			}
 		});

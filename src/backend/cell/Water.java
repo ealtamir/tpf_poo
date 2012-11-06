@@ -26,27 +26,50 @@ public class Water extends Cell {
 	public Water(Cell cell) {
 		super(cell);
 	}
-
+	
+	
+	/**
+	 * Al recibir un Movable, una celda de tipo Water envia
+	 * el mensaje getWet para indicarle dicho suceso.
+	 * No almacena al Movable.
+	 * @param movable Movable que ingresa a la celda.
+	 */
 	@Override
 	public void receiveMovable(Movable movable) {
 		movable.getWet();
 	}
 	
+	/**
+	 * Una celda de tipo Water nunca puede contener un movable.
+	 * @return {@code null}
+	 */
 	@Override
 	public Movable releaseMovable() {
 		return null;
 	}
 	
+	/**
+	 * Una celda de tipo Water siempre es ocupable.
+	 * @return {@code true}
+	 */
 	@Override
 	public boolean isOccupiable() {
 		return true;
 	}
 	
+	/**
+	 * Una celda de tipo Water nunca puede contener un Movable.
+	 * @return {@code null}
+	 */
 	@Override
 	public Movable getMovable() {
 		return null;
 	}
 	
+	/**
+	 * Patron visitor para visitar las celdas.
+	 * @param visitor CellVisitor
+	 */
 	@Override
 	public void accept(CellVisitor visitor) {
 		visitor.visit(this);		
