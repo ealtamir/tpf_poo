@@ -22,6 +22,10 @@ public class Water extends Cell {
 		super(position);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Water(Cell cell) {
+		super(cell);
+	}
 
 	@Override
 	public void receiveMovable(Movable movable) {

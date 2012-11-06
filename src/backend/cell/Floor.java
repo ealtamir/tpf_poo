@@ -22,6 +22,10 @@ public class Floor extends Cell {
 		this.movable = null;
 	}
 	
+	public Floor(Cell cell) {
+		super(cell);
+	}
+	
 	@Override
 	public Movable getMovable() {
 		return this.movable;
@@ -36,6 +40,7 @@ public class Floor extends Cell {
 	public Movable releaseMovable() {
 		Movable movable = this.movable;
 		this.movable = null;
+		this.notifyObservers();
 		return movable;
 	}
 	
@@ -46,6 +51,8 @@ public class Floor extends Cell {
 			throw new UnoccupiableException("Cell already occupied.");
 		
 		this.movable = movable;
+		
+		this.notifyObservers();
 		
 	}
 	

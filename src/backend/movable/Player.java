@@ -45,11 +45,6 @@ public class Player extends Movable {
 		return super.move(dir);
 		
 	}
-	
-	@Override
-	public String idCharacter() {
-		return "@";
-	}
 
 	@Override
 	public void getWet() {

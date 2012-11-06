@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import general.observer.*;
+
 import javax.swing.*;
 
 import backend.board.Direction;
@@ -19,8 +21,11 @@ import backend.cell.ShallowWater;
 import backend.cell.Switch;
 import backend.cell.Tree;
 import backend.cell.Water;
+import backend.cell.Cell;
 import backend.movable.Box;
 import backend.movable.IceCube;
+import backend.movable.Movable;
+import backend.movable.MovableVisitor;
 import backend.movable.Player;
 
 import gui.BoardPanel;
@@ -31,7 +36,8 @@ public class Game extends JFrame
 	implements 
 		KeyListener, 
 		backend.cell.CellVisitor,
-		backend.movable.MovableVisitor {
+		backend.movable.MovableVisitor,
+		Observer {
 	
 	
 	/**
@@ -112,16 +118,11 @@ public class Game extends JFrame
 		
 	}
 	
-	private void drawBoard() {
-		backend.board.Board board = game.getBoard();
-		for (int row = 0; row < rows; row++) {
-			for (int col = 0; col < cols; col++) {
-				backend.cell.Cell cell = board.getCell(new Point(col, row));
-				cell.accept(this);
-				if( cell.getMovable() != null ) {
-					cell.getMovable().accept(this);
-				}
-			}
+	private void drawBoard() {		
+		for (Cell cell: game.getBoard())
+		{
+			cell.addObserver(this);
+			cell.accept(this);
 		}
 		repaint();
 	}
@@ -140,7 +141,7 @@ public class Game extends JFrame
 				|| keyCode == KeyEvent.VK_LEFT 
 				|| keyCode == KeyEvent.VK_RIGHT )) {
 			game.getPlayer().move(movesMap.get(keyCode));
-			drawBoard();
+			repaint();
 			KEY_PRESSED = keyCode;
 		}
 	}
@@ -152,61 +153,81 @@ public class Game extends JFrame
 			KEY_PRESSED = 0;
 		}
 	}
-	@Override
+	
+	
+	private void drawCell(Cell cell, Image image) {
+		Point position = cell.getPosition();
+		Movable movable = cell.getMovable();
+		
+		boardPanel.setImage(position.y, position.x, image);
+		
+		if (movable != null)
+			movable.accept(this);
+		
+	}
+	
+	private void drawMovable(Movable movable, Image image) {
+		Point position = movable.getPosition();		
+		boardPanel.appendImage(position.y, position.x, image);
+	}
+	
+	@Override 
 	public void visit(IceCube iceCube) {
-		Point p = iceCube.getPosition();
-		boardPanel.appendImage(p.y, p.x, this.iceCube);
+		drawMovable(iceCube, this.iceCube);
 	}
 
 	@Override
 	public void visit(Box box) {
-		Point p = box.getPosition();
-		boardPanel.appendImage(p.y, p.x, this.box);
+		drawMovable(box, this.box);
 	}
 
 	@Override
 	public void visit(Player player) {
-		Point p = player.getPosition();
-		boardPanel.appendImage(p.y, p.x, this.player);
+		drawMovable(player, this.player);
 	}	
 
 	@Override
 	public void visit(Floor f) {
-		Point p = f.getPosition();
-		boardPanel.setImage(p.y, p.x, floor);
+		drawCell(f, this.floor);
 	}
 
 	@Override
 	public void visit(ShallowWater sw) {
-		Point p = sw.getPosition();
-		boardPanel.setImage(p.y, p.x, shallowWater);
+		drawCell(sw, this.shallowWater);
 	}
 
 	@Override
 	public void visit(Switch s) {
-		Point p = s.getPosition();
-		boardPanel.setImage(p.y, p.x, swtch);
+		drawCell(s, this.swtch);
 	}
 
 	@Override
 	public void visit(Tree t) {
 		Point p = t.getPosition();
-		boardPanel.setImage(p.y, p.x, floor);
+		drawCell(t, this.floor);
 		boardPanel.appendImage(p.y, p.x, tree);
 	}
 
 	@Override
 	public void visit(Water w) {
-		Point p = w.getPosition();
-		boardPanel.setImage(p.y, p.x, water);
+		drawCell(w, this.water);
 	}
 
 	@Override
 	public void visit(Destination d) {
-		Point p = d.getPosition();
 		if (d.isVisible())
-			boardPanel.setImage(p.y, p.x, destination);
+			drawCell(d, this.destination);
 		else
-			boardPanel.setImage(p.y, p.x, floor);
+			drawCell(d, this.floor);
 	}
+	
+	@Override
+	public void observe(Observable o, Object arg) {
+		if (o instanceof Cell) {
+			((Cell) o).accept(this);
+			System.out.println(o);
+			repaint();
+		}
+	}
+
 }

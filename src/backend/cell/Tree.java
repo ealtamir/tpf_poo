@@ -15,6 +15,10 @@ public class Tree extends Cell {
 		super(position);
 	}
 	
+	public Tree(Cell cell) {
+		super(cell);
+	}
+	
 	@Override
 	public Movable getMovable() {
 		return null;

@@ -39,11 +39,6 @@ public class IceCube extends Movable {
 	}
 	
 	@Override
-	public String idCharacter() {
-		return "C";
-	}
-	
-	@Override
 	public void accept(MovableVisitor visitor) {
 		visitor.visit(this);
 	}

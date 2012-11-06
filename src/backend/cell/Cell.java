@@ -2,10 +2,12 @@ package backend.cell;
 
 import backend.movable.*;
 
+import general.observer.Observable;
+
 import java.awt.Point;
 import java.io.Serializable;
 
-public abstract class Cell implements Serializable {
+public abstract class Cell extends Observable implements Serializable {
 
 	/**
 	 * 
@@ -15,6 +17,11 @@ public abstract class Cell implements Serializable {
 	
 	public Cell(Point position) {
 		this.position = position;
+	}
+	
+	public Cell(Cell cell) {
+		super(cell);
+		this.position = cell.position;
 	}
 	
 	public Point getPosition() {
