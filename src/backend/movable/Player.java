@@ -20,7 +20,12 @@ public class Player extends Movable {
 		this.game = game;
 	}
 		
-	
+	/**
+	 * Intenta mover el objeto que se encuentra en la direccion del jugador,
+	 * pidiendoselo a Board.
+	 * Luego realiza el movimiento normal de un Movable @see Movable#move(Direction)
+	 * @param dir Direccion de movimiento del jugador
+	 */
 	public boolean move(Direction dir) {
 		
 		Point nextPosition = dir.increment(this.getPosition());
@@ -45,16 +50,26 @@ public class Player extends Movable {
 		return super.move(dir);
 		
 	}
-
+	
+	/**
+	 * Mojar al jugador. Ocasiona la perdida del juego.
+	 */
 	@Override
 	public void getWet() {
 		this.game.lose();
 	}
 	
+	/**
+	 * Termina el juego con exito.
+	 */
 	public void endGame() {
-		this.game.win();	
+		this.game.win();
 	}
 	
+	/**
+	 *  Patron Visitor para visitar Movables.
+	 *  @param visitor Visitor de Movable
+	 */
 	public void accept(MovableVisitor visitor) {
 		visitor.visit(this);
 	}

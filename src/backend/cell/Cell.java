@@ -28,6 +28,10 @@ public abstract class Cell extends Observable implements Serializable {
 		return this.position;
 	}
 	
+	/**
+	 * Patron visitor para visitar las celdas.
+	 * @param visitor CellVisitor
+	 */
 	public abstract void accept(CellVisitor visitor);
 	
 	public abstract Movable getMovable();

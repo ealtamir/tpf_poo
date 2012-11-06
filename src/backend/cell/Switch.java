@@ -26,6 +26,12 @@ public class Switch extends Floor {
 		this.destination = destination;
 	}
 	
+	/**
+	 * Al ingresar un Movable a una celda de tipo Switch, 
+	 * debe mostrarse el destino referenciado solo si es de tipo IceCube.
+	 * @see Floor#receiveMovable(Movable)
+	 * @param movable Movable a ingresar en la celda.
+	 */
 	@Override
 	public void receiveMovable(Movable movable) {
 		/*
@@ -39,6 +45,12 @@ public class Switch extends Floor {
 		super.receiveMovable(movable);
 	}
 	
+	/**
+	 * Al salir un Movable de una celda de tipo Switch, la accion
+	 * a llevar a cabo es la de ocultar el destino referenciado.
+	 * @see Floor#releaseMovable()
+	 * @return Movable contenido en la celda.
+	 */
 	@Override
 	public Movable releaseMovable() {
 		
@@ -48,6 +60,10 @@ public class Switch extends Floor {
 		return super.releaseMovable();
 	}
 	
+	/**
+	 * Patron visitor para visitar las celdas.
+	 * @param visitor CellVisitor
+	 */
 	@Override
 	public void accept(CellVisitor visitor) {
 		visitor.visit(this);		

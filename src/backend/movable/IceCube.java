@@ -19,6 +19,13 @@ public class IceCube extends Movable {
 	}
 	
 	
+	/**
+	 * Realiza un movimiento continuo hasta que encuentra que no puede
+	 * seguir moviendose.
+	 * En caso de mojarse al entrar en una celda de tipo Water, tambien
+	 * finaliza el movimiento.
+	 * @param direction Direccion del movimiento.
+	 */
 	@Override
 	public boolean move(Direction direction) {
 		
@@ -33,11 +40,20 @@ public class IceCube extends Movable {
 		return moved;
 	}
 
+	
+	/**
+	 * Establece un flag que indica que el cubo de hielo
+	 * esta derretido y no debe seguir moviendose.
+	 */
 	@Override
 	public void getWet() {
 		this.melted = true;
 	}
 	
+	/**
+	 *  Patron Visitor para visitar Movables.
+	 *  @param visitor Visitor de Movable
+	 */
 	@Override
 	public void accept(MovableVisitor visitor) {
 		visitor.visit(this);
