@@ -122,19 +122,19 @@ public class GameTests {
 	}
 	
 	player.move(Direction.NORTH);
-	assertTrue(game.getBoard().getCell(new Point(player.getPosition().x,player.getPosition().y-3)).isOccupiable());
+	assertTrue(game.getBoard().getCell(Direction.NORTH.increment(Direction.NORTH.increment(Direction.NORTH.increment(player.getPosition())))).isOccupiable());
 	assertTrue(!game.getBoard().getCell(player.getPosition()).isOccupiable());
 	
 	player.move(Direction.SOUTH);
-	assertTrue(game.getBoard().getCell(new Point(player.getPosition().x,player.getPosition().y+3)).isOccupiable());
+	assertTrue(game.getBoard().getCell(Direction.SOUTH.increment(Direction.SOUTH.increment(Direction.SOUTH.increment(player.getPosition())))).isOccupiable());
 	assertTrue(!game.getBoard().getCell(player.getPosition()).isOccupiable());
 				
 	player.move(Direction.EAST);
-	assertTrue(game.getBoard().getCell(new Point(player.getPosition().x+3,player.getPosition().y)).isOccupiable());
+	assertTrue(game.getBoard().getCell(Direction.EAST.increment(Direction.EAST.increment(Direction.EAST.increment(player.getPosition())))).isOccupiable());
 	assertTrue(!game.getBoard().getCell(player.getPosition()).isOccupiable());
 				
 	player.move(Direction.WEST);
-	assertTrue(game.getBoard().getCell(new Point(player.getPosition().x-3,player.getPosition().y)).isOccupiable());
+	assertTrue(game.getBoard().getCell(Direction.WEST.increment(Direction.WEST.increment(Direction.WEST.increment(player.getPosition())))).isOccupiable());
 	assertTrue(!game.getBoard().getCell(player.getPosition()).isOccupiable());	
  }
  /** Checks if player is surrounded by rows and cols of 2 boxes.
