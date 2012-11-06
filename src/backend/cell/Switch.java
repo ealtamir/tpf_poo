@@ -13,6 +13,10 @@ public class Switch extends Floor {
 		super(position);
 	}
 	
+	public Switch(Cell cell) {
+		super(cell);
+	}
+	
 	public void setDestination(Destination destination) {
 		this.destination = destination;
 	}

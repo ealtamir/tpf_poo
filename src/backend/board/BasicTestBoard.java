@@ -17,25 +17,26 @@ public class BasicTestBoard extends Board {
 		
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
+				Point currentPosition = new Point(x, y);
 				if (x == 0 || y == 0 || x == (width-1) || y == (height-1)) {
 					if (y % 2 == 0)
-						this.setCell(x, y, new Tree(new Point(x, y)));
+						this.setCell(currentPosition, new Tree(currentPosition));
 					else
-						this.setCell(x, y, new Floor(new Point(x,y)));
+						this.setCell(currentPosition, new Floor(currentPosition));
 
 				}
 				else if (y == 7) {
-					this.setCell(x, y, new Water(new Point(x, y)));
+					this.setCell(currentPosition, new Water(currentPosition));
 				}
 				else {
-					this.setCell(x, y, new Floor(new Point(x,y)));
+					this.setCell(currentPosition, new Floor(currentPosition));
 				}
 			}
 		}
 		
 		
-		this.setCell(8, 8, dest);
-		this.setCell(4, 4, sw);
+		this.setCell(dest.getPosition(), dest);
+		this.setCell(sw.getPosition(), sw);
 	}
 
 }

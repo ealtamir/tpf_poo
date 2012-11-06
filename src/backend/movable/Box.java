@@ -14,13 +14,10 @@ public class Box extends Movable{
 
 	@Override
 	public void getWet() {
+		Board board = this.getBoard();
 		Point currentPosition = this.getPosition();
-		this.getBoard().setCell(currentPosition, new ShallowWater(currentPosition));
-	}
-	
-	@Override
-	public String idCharacter() {
-		return "B";
+		ShallowWater newShallowWater = new ShallowWater(board.getCell(currentPosition));
+		board.setCell(currentPosition, newShallowWater);
 	}
 
 	public void accept(MovableVisitor visitor) {

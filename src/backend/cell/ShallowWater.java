@@ -8,6 +8,10 @@ public class ShallowWater extends Floor {
 		super(position);
 	}
 	
+	public ShallowWater(Cell cell) {
+		super(cell);
+	}
+	
 	@Override
 	public void accept(CellVisitor visitor) {
 		visitor.visit(this);		

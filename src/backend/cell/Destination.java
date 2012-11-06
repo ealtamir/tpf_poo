@@ -13,6 +13,10 @@ public class Destination extends Floor {
 		super(position);
 	}
 	
+	public Destination(Cell cell) {
+		super(cell);
+	}
+	
 	private void warpMovable() {
 		if (this.movable != null && this.movable instanceof Player && this.visible)
 			((Player)this.movable).endGame();
@@ -26,10 +30,12 @@ public class Destination extends Floor {
 	public void show() {
 		this.visible = true;
 		this.warpMovable();
+		this.notifyObservers();
 	}
 	
 	public void hide() {
 		this.visible = false;
+		this.notifyObservers();
 	}
 	
 	public boolean isVisible() {

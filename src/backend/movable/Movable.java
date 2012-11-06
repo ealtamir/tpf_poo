@@ -57,8 +57,6 @@ public abstract class Movable {
 		return this.board;
 	}
 	
-	public abstract String idCharacter();
-	
 	public abstract void accept(MovableVisitor visitor);
 	
 	public abstract void getWet();
