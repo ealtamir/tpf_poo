@@ -34,18 +34,23 @@ public class Parser {
 			//	char[] lineParts = null;
 			inStream = new BufferedReader(new FileReader(f));
 			String line = inStream.readLine();
-			int columns = line.length(); // Cuenta la cantidad de columnas de la primera fila
+			int columns = line.length(); // Counts the columns in the first line
 			
 			inStream = new BufferedReader(new FileReader(f));
 			int rows = 1;
 			
 			/* Count rows */
-			for(int i; (i = inStream.read()) != -1; ){
+			for(int i = inStream.read(); i != -1; ){
 				if(i == '\n'){
-					rows++;
+					if((i = inStream.read()) != -1){ /* Avoids a \n at the last place breaking the parser */
+						rows++;	
+					}
+				}
+				else{
+					i = inStream.read();
 				}
 			}
-			/* Makes sure the level has a reasonable minimal space*/
+			/* Makes sure the level has a reasonable minimal space */
 			if ( rows < MINIMUM_ROWS || columns < MINIMUM_COLS){
 				throw new InvalidFileException("Rows or columns go out of bounds. Both must be 5 or greater.");					
 			}
