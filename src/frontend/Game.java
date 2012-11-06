@@ -25,7 +25,6 @@ import backend.cell.Cell;
 import backend.movable.Box;
 import backend.movable.IceCube;
 import backend.movable.Movable;
-import backend.movable.MovableVisitor;
 import backend.movable.Player;
 
 import gui.BoardPanel;
@@ -50,8 +49,6 @@ public class Game extends JFrame
 	private int KEY_PRESSED = 0;
 	private backend.Game game;
 	
-	private int rows;
-	private int cols;
 	private int width;
 	private int height;
 	
@@ -73,9 +70,6 @@ public class Game extends JFrame
 		// Cantidad que sumo para que quede alineado el panel con el frame.
 		width = CELL_SIZE * columns; // 22 es la altura del menubar.
 		height = CELL_SIZE * rows + 43; 
-		this.cols = columns;
-		this.rows = rows;
-		
 		movesMap = new HashMap<Integer, Direction>();
 		movesMap.put(KeyEvent.VK_UP, Direction.NORTH);
 		movesMap.put(KeyEvent.VK_DOWN, Direction.SOUTH);
@@ -225,7 +219,6 @@ public class Game extends JFrame
 	public void observe(Observable o, Object arg) {
 		if (o instanceof Cell) {
 			((Cell) o).accept(this);
-			System.out.println(o);
 			repaint();
 		}
 	}

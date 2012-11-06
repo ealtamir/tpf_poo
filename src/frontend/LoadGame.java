@@ -41,12 +41,13 @@ public class LoadGame extends StartGame {
 				currentMap = (File) file.readObject();
 				
 				file.close();
+				startNewGame();
 			} catch (Exception e1) {				
-				JOptionPane.showMessageDialog(gameScreen, e1.getMessage());
+				JOptionPane.showMessageDialog(gameScreen, "Elegiste un archivo inválido para cargar.");
 				e1.printStackTrace();
+				gameScreen.setVisible(true);
 			}
 			
-			startNewGame();
 		}
 	}
 
