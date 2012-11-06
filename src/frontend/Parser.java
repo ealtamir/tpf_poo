@@ -12,6 +12,10 @@ import backend.Game;
 import backend.movable.*;
 
 public class Parser {
+	
+	final private int MINIMUM_ROWS = 5;
+	final private int MINIMUM_COLS = 5;
+	
 	public Game parse(File f) throws Exception {
 		Game parsedGame = new Game();
 		Board parsedBoard;
@@ -22,7 +26,7 @@ public class Parser {
 			//	char[] lineParts = null;
 			inStream = new BufferedReader(new FileReader(f));
 			String line = inStream.readLine();
-			int columns = line.length();
+			int columns = line.length(); // Cuenta la cantidad de columnas de la primera fila
 			
 			inStream = new BufferedReader(new FileReader(f));
 			int rows = 1;
@@ -34,7 +38,7 @@ public class Parser {
 				}
 			}
 			/* Makes sure the level has a reasonable minimal space*/
-			if ( rows < 4 || columns < 4){
+			if ( rows < MINIMUM_ROWS || columns < MINIMUM_COLS){
 				throw new InvalidFileException("Rows or columns go out of bounds. Both must be 5 or greater.");					
 			}
 			
@@ -42,9 +46,11 @@ public class Parser {
 		
 			inStream = new BufferedReader(new FileReader(f));
 			line = inStream.readLine();
-			for(int row = 0; row < rows && line.length() == columns; row++){
+			for(int row = 0; line != null; row++){
 				if(line.length() != columns){
-					throw new InvalidFileException("Some line contains more columns than the others.");
+					throw new InvalidFileException("Algunas líneas contienen más " 		+
+							"	columnas que otras. Asegúrate que no hayan espacios " 	+
+							"	en blanco cambiando la longitud de las filas.");
 				}
 				
 				char[] dividedLine = line.toCharArray();

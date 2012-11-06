@@ -48,6 +48,8 @@ public class StartGame implements ActionListener {
 						game,
 						createMenuBar()
 				);
+			} catch (InvalidFileException exception) {
+				JOptionPane.showMessageDialog(gameScreen, exception.getMessage());
 			} catch (Exception exception) {
 				if (exception.getMessage() == null) {
 					JOptionPane.showMessageDialog(gameScreen, "Error al intentar cargar el mapa.");

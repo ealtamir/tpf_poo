@@ -62,8 +62,8 @@ public class Game extends JFrame
 	public Game(String windowTitle, int rows, int columns, backend.Game game, JMenuBar menuBar) {
 		this.game = game;
 		// Cantidad que sumo para que quede alineado el panel con el frame.
-		width = CELL_SIZE * columns + 22 + 22; // 22 es la altura del menubar.
-		height = CELL_SIZE * rows; 
+		width = CELL_SIZE * columns; // 22 es la altura del menubar.
+		height = CELL_SIZE * rows + 43; 
 		this.cols = columns;
 		this.rows = rows;
 		
@@ -76,7 +76,7 @@ public class Game extends JFrame
 		//setLayout(null);
 		loadGraphics();
 		setResizable(false);
-		setSize(height, width);
+		setSize(width, height);
 		setLocationRelativeTo(null);
 		setJMenuBar(menuBar);
 		setVisible(true);
@@ -96,7 +96,7 @@ public class Game extends JFrame
 			tree 		= ImageUtils.loadImage("resources/tree.png");
 			wall 		= ImageUtils.loadImage("resources/wall.png");
 			floor 		= ImageUtils.loadImage("resources/cell.png");
-			box 		= ImageUtils.loadImage("resources/cell.png");
+			box 		= ImageUtils.loadImage("resources/box.png");
 		} catch(IOException e) {
 			System.out.println("No se puedo cargar un archivo.");
 			e.printStackTrace();
@@ -158,7 +158,7 @@ public class Game extends JFrame
 	@Override
 	public void visit(Box box) {
 		Point p = box.getPosition();
-		boardPanel.appendImage(p.y, p.x, this.wall);
+		boardPanel.appendImage(p.y, p.x, this.box);
 	}
 
 	@Override
