@@ -201,6 +201,9 @@ public class Game extends JFrame
 	@Override
 	public void visit(Destination d) {
 		Point p = d.getPosition();
-		boardPanel.setImage(p.y, p.x, destination);
+		if (d.isVisible())
+			boardPanel.setImage(p.y, p.x, destination);
+		else
+			boardPanel.setImage(p.y, p.x, floor);
 	}
 }
