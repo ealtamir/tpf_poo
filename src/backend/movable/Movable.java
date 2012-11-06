@@ -5,11 +5,16 @@ import backend.board.InvalidPositionException;
 import backend.cell.Cell;
 
 import java.awt.Point;
+import java.io.Serializable;
 
 import backend.board.Direction;
 
-public abstract class Movable {
+public abstract class Movable implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Point position;
 	private Board board;
 	

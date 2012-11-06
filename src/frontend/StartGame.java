@@ -2,10 +2,15 @@ package frontend;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -13,9 +18,17 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+
+import java.util.Date;
+
 public class StartGame implements ActionListener {
 
-	private JFrame gameScreen;
+	private Game currentGameGraphics;
+	
+	protected backend.Game currentGameLogic;
+	protected JFrame gameScreen;
+	protected File currentMap;
+	
 	/**
 	 * Carga el juego a partir de un mapa.
 	 * @param gameScreen
@@ -37,28 +50,8 @@ public class StartGame implements ActionListener {
 
 		int ret = fileopen.showDialog(gameScreen.getContentPane(), "Open file");
 		if (ret == JFileChooser.APPROVE_OPTION) {
-			File file = fileopen.getSelectedFile();
-			try {
-				backend.Game game = (new Parser()).parse(file);
-				gameScreen.setVisible(false);
-				Game gameGraphics = new Game(
-						"Silversphere", 
-						game.getBoard().getHeight(),
-						game.getBoard().getWidth(),
-						game,
-						createMenuBar()
-				);
-			} catch (InvalidFileException exception) {
-				JOptionPane.showMessageDialog(gameScreen, exception.getMessage());
-			} catch (Exception exception) {
-				if (exception.getMessage() == null) {
-					JOptionPane.showMessageDialog(gameScreen, "Error al intentar cargar el mapa.");
-				} else {
-					JOptionPane.showMessageDialog(gameScreen, exception.getMessage());
-				}
-				exception.printStackTrace();
-				gameScreen.setVisible(true);
-			}
+			currentMap = fileopen.getSelectedFile();
+			startGameFromLevel();
 		}
 	}
 	
@@ -80,24 +73,39 @@ public class StartGame implements ActionListener {
 		newGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// Esto no es estrictamente necesario que lo hagamos.
-				// Acá tengo que darle la oportunidad al jugador de cargar un nuevo mapa.
-				
+				backToMenu();
 			}
 		});
 		reset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: Hay que hacer esto para la entrega.
-				// Aca tengo que invocar el método action performed de la clase.
-				
+				startGameFromLevel();
 			}
 		});
 		save.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: Hay que hacer esto para la entrega.
-				// Acá tengo que serializar el mapa a un archivo que elija el usuario.
+				DateFormat dateFormat = new SimpleDateFormat("ddMMyyyHHmmss");
+				Date date = new Date();
+				String date_str = dateFormat.format(date);
+				
+				String file_name = "saved_games" + File.separator + "game_" + date_str + ".game";
+				try {
+					ObjectOutputStream file = new ObjectOutputStream(
+							new BufferedOutputStream(
+									new FileOutputStream(file_name)));
+					file.writeObject(currentGameLogic);
+					file.writeObject(currentMap);
+					file.close();
+				} catch (FileNotFoundException e1) {
+					JOptionPane.showMessageDialog(gameScreen, e1.getMessage());
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(gameScreen, e1.getMessage());
+					e1.printStackTrace();
+				} finally {
+					backToMenu();
+				}
 				
 			}
 		});
@@ -105,12 +113,44 @@ public class StartGame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
-				
 			}
 		});
 		
 		menuBar.add(file);
 		
 		return menuBar;
+	}
+	private void startGameFromLevel() {
+		try {
+			currentGameLogic = (new Parser()).parse(currentMap);
+		} catch (InvalidFileException exception) {
+			JOptionPane.showMessageDialog(gameScreen, exception.getMessage());
+		} catch (Exception exception) {
+			if (exception.getMessage() == null) {
+				JOptionPane.showMessageDialog(gameScreen, "Error al intentar cargar el mapa.");
+			} else {
+				JOptionPane.showMessageDialog(gameScreen, exception.getMessage());
+			}
+			exception.printStackTrace();
+			gameScreen.setVisible(true);
+		}
+		startNewGame();
+	}
+	
+	protected void startNewGame() {
+		gameScreen.setVisible(false);
+		currentGameGraphics = new Game(
+				"Silversphere", 
+				currentGameLogic.getBoard().getHeight(),
+				currentGameLogic.getBoard().getWidth(),
+				currentGameLogic,
+				createMenuBar()
+		);
+	}
+	
+	private void backToMenu() {
+		currentGameGraphics.setVisible(false);
+		currentGameGraphics = null;
+		gameScreen.setVisible(true);
 	}
 }

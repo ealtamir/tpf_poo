@@ -1,8 +1,9 @@
 package backend.board;
 
 import java.awt.Point;
+import java.io.Serializable;
 
-public enum Direction {
+public enum Direction implements Serializable {
 	
 	NORTH(-1, 0), EAST(0, 1), SOUTH(1, 0), WEST(0, -1);
 	

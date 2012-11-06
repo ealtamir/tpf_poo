@@ -13,6 +13,11 @@ import java.awt.Point;
 
 public class Water extends Cell {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Water(Point position) {
 		super(position);
 		// TODO Auto-generated constructor stub

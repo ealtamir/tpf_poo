@@ -2,10 +2,6 @@ package frontend;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
 import frontend.LoadPanel;
 
@@ -16,8 +12,7 @@ public class Main {
 	
 
 	public static void main(String[] args) {
-		Main gl = new Main("TP POO"); 
-		
+		new Main("TP POO"); 
 	}
 	
 	public JFrame getGameScreen() {

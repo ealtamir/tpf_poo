@@ -3,9 +3,14 @@ package backend.cell;
 import backend.movable.*;
 
 import java.awt.Point;
+import java.io.Serializable;
 
-public abstract class Cell {
+public abstract class Cell implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Point position;
 	
 	public Cell(Point position) {

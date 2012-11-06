@@ -1,10 +1,15 @@
 package backend.board;
 import java.awt.Point;
+import java.io.Serializable;
 
 import backend.cell.*;
 
-public class Board {
+public class Board implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Cell terrain[][];
 	private int columns;
 	private int rows;

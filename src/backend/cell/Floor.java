@@ -6,6 +6,10 @@ import backend.movable.Movable;
 
 public class Floor extends Cell {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Movable movable;
 	
 	public Floor(Movable movable, Point position) {

@@ -3,8 +3,13 @@ package backend;
 import backend.board.Board;
 import backend.movable.*;
 import java.awt.Point;
+import java.io.Serializable;
 
-public class Game {
+public class Game implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Board board;
 	private Player player;
 	

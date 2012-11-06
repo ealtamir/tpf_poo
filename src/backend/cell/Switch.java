@@ -7,6 +7,11 @@ import java.awt.Point;
 
 public class Switch extends Floor {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	Destination destination;
 	
 	public Switch(Point position) {

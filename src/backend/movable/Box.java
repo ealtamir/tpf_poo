@@ -8,6 +8,11 @@ import java.awt.Point;
 
 public class Box extends Movable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Box(Board board, Point position) {
 		super(board, position);
 	}

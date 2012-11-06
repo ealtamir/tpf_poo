@@ -7,6 +7,10 @@ import java.awt.Point;
 
 public class Destination extends Floor {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private boolean visible = false;
 		
 	public Destination(Point position) {
