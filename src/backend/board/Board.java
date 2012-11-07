@@ -48,7 +48,7 @@ public class Board implements Iterable<Cell>, Serializable {
 	
 	/**
 	 * Crea un tablero nuevo de alto height y ancho width.
-	 * @param width Ancho del tablero
+	 * @param columns Ancho del tablero
 	 * @param rows Alto del tabler
 	 */
 	public Board(int rows, int columns) {

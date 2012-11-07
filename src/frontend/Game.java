@@ -30,7 +30,27 @@ import backend.movable.Player;
 import gui.BoardPanel;
 import gui.ImageUtils;
 
-
+/**
+ * Clase que extiende de JFrame y que se ocupa de crear los gráficos
+ * del juego. La clase implementa varias interfaces que se encargan
+ * de los siguientes comportamientos:
+ * 
+ * -KeyListener: Listeners para los eventos de teclado. 
+ * 
+ * -backend.cell.CellVisitor: Interfaz que se utiliza para conectar el
+ * frontend con el backend. Esta interfaz le provee a backend.cell.Cell de un 
+ * método que el frontend usa para dibujar cada objeto Cell en el tablero. 
+ * 
+ * -backend.movable.MovableVisitor: Provee el mismo funcionamiento que la clase
+ * CellVisitor sólo que para los objetos backend.movable.Movable.
+ * 
+ * -Observer: Clase que le provee una interfaz al backend para que el mismo le
+ * avise al frontend cuándo actualizar los gráficos, para que reflejen los últimos
+ * cambios realizados.
+ * 
+ * @author enzo
+ *
+ */
 public class Game extends JFrame 
 	implements 
 		KeyListener, 
@@ -43,17 +63,23 @@ public class Game extends JFrame
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 	private static final int CELL_SIZE = 30;
 	private Map<Integer, Direction> movesMap;
-	private int KEY_PRESSED = 0;
-	private backend.Game game;
 	
+	/* Estado de las teclas presionadas */
+	private int KEY_PRESSED = 0;
+	
+	/* Tamaño en píxeles de la pantalla del juego */
 	private int width;
 	private int height;
 	
+	/* */
+	private backend.Game game;
+	
+	/* Panel que contiene los JPanels que representan cada celda del juego. */
 	private BoardPanel boardPanel;
 	
+	/* Imagenes que se utilizarán en el juego */
 	private Image player;
 	private Image water;
 	private Image iceCube;
@@ -64,19 +90,31 @@ public class Game extends JFrame
 	private Image floor;
 	private Image box;
 	
-	
+	/**
+	 * Constructor de la clase frontend.Game. Recibe los siguientes parámetros:
+	 * 
+	 * @param windowTitle, El título que tendrá el borde de la ventana de juego.
+	 * @param rows, La cantidad de filas que tiene el tablero de juego.
+	 * @param columns, La cantidad de columnas que tiene el tablero de juego.
+	 * @param game, El objeto de backend.game que representa la lógica del juego.
+	 * @param menuBar, El objeto JMenuBar que representa la barra de menú que se mostrará
+	 * en la ventana de juego.
+	 */
 	public Game(String windowTitle, int rows, int columns, backend.Game game, JMenuBar menuBar) {
 		this.game = game;
+		
+		width = CELL_SIZE * columns; 
 		// Cantidad que sumo para que quede alineado el panel con el frame.
-		width = CELL_SIZE * columns; // 22 es la altura del menubar.
 		height = CELL_SIZE * rows + 43; 
+		
+		// Mapeo entre los eventos de teclados y las direcciones en las que
+		// se tiene que mover el jugador.
 		movesMap = new HashMap<Integer, Direction>();
 		movesMap.put(KeyEvent.VK_UP, Direction.NORTH);
 		movesMap.put(KeyEvent.VK_DOWN, Direction.SOUTH);
 		movesMap.put(KeyEvent.VK_LEFT, Direction.WEST);
 		movesMap.put(KeyEvent.VK_RIGHT, Direction.EAST);
 		
-		//setLayout(null);
 		loadGraphics();
 		setResizable(false);
 		setSize(width, height);
@@ -89,6 +127,10 @@ public class Game extends JFrame
 		
 	}
 	
+	/**
+	 * Carga las imágenes a las variables respectivas y realiza ciertas configuraciones
+	 * al JFrame 
+	 */
 	private void loadGraphics() {
 		try {
 			player 		= ImageUtils.loadImage("resources" + File.separator + "trollface.png");
@@ -111,7 +153,11 @@ public class Game extends JFrame
 		drawBoard();
 		
 	}
-	
+/*****************************************************
+ * 
+ * 				Helpers de gráficos
+ * 
+*****************************************************/
 	private void drawBoard() {		
 		for (Cell cell: game.getBoard())
 		{
@@ -121,6 +167,28 @@ public class Game extends JFrame
 		repaint();
 	}
 	
+	private void drawCell(Cell cell, Image image) {
+		Point position = cell.getPosition();
+		Movable movable = cell.getMovable();
+		
+		boardPanel.setImage(position.y, position.x, image);
+		
+		if (movable != null)
+			movable.accept(this);
+		
+	}
+	
+	private void drawMovable(Movable movable, Image image) {
+		Point position = movable.getPosition();		
+		boardPanel.appendImage(position.y, position.x, image);
+	}
+	
+	
+/*****************************************************
+ * 
+ * 				Listeners del Teclado
+ * 
+*****************************************************/
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// Este m��todo no hace nada.
@@ -147,24 +215,11 @@ public class Game extends JFrame
 			KEY_PRESSED = 0;
 		}
 	}
-	
-	
-	private void drawCell(Cell cell, Image image) {
-		Point position = cell.getPosition();
-		Movable movable = cell.getMovable();
-		
-		boardPanel.setImage(position.y, position.x, image);
-		
-		if (movable != null)
-			movable.accept(this);
-		
-	}
-	
-	private void drawMovable(Movable movable, Image image) {
-		Point position = movable.getPosition();		
-		boardPanel.appendImage(position.y, position.x, image);
-	}
-	
+/*****************************************************
+ * 
+ * 			Implementación de Visitor
+ * 
+*****************************************************/
 	@Override 
 	public void visit(IceCube iceCube) {
 		drawMovable(iceCube, this.iceCube);
@@ -215,6 +270,11 @@ public class Game extends JFrame
 			drawCell(d, this.floor);
 	}
 	
+/*****************************************************
+ * 
+ * 			Implementación de Observer
+ * 
+*****************************************************/
 	@Override
 	public void observe(Observable o, Object arg) {
 		if (o instanceof Cell) {
@@ -222,5 +282,4 @@ public class Game extends JFrame
 			repaint();
 		}
 	}
-
 }
