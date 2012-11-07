@@ -10,10 +10,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import general.observer.*;
+import backend.cell.CellListener;
+
+import backend.GameListener;
 
 import javax.swing.*;
 
+import backend.GameListener;
 import backend.board.Direction;
 import backend.cell.Destination;
 import backend.cell.Floor;
@@ -56,7 +59,8 @@ public class Game extends JFrame
 		KeyListener, 
 		backend.cell.CellVisitor,
 		backend.movable.MovableVisitor,
-		Observer {
+		CellListener,
+		GameListener {
 	
 	
 	/**
@@ -125,6 +129,8 @@ public class Game extends JFrame
 		menuBar.setVisible(true);
 		addKeyListener(this);
 		
+		game.setListener(this);
+		
 	}
 	
 	/**
@@ -161,7 +167,7 @@ public class Game extends JFrame
 	private void drawBoard() {		
 		for (Cell cell: game.getBoard())
 		{
-			cell.addObserver(this);
+			cell.setListener(this);
 			cell.accept(this);
 		}
 		repaint();
@@ -276,10 +282,22 @@ public class Game extends JFrame
  * 
 *****************************************************/
 	@Override
-	public void observe(Observable o, Object arg) {
-		if (o instanceof Cell) {
-			((Cell) o).accept(this);
-			repaint();
-		}
+	public void cellChanged(Cell cell) {
+		cell.accept(this);
+		repaint();
+	}
+	
+	@Override
+	public void gameLost(backend.Game game) {
+		// TODO Poner aca el codigo de cuando perdes el juego.
+		System.out.println("You lose...");
+		
+	}
+	
+	@Override
+	public void gameWon(backend.Game game) {
+		// TODO Poner aca el codigo de cuando ganas el juego.
+		System.out.println("You win!");
+		
 	}
 }

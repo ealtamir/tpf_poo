@@ -5,11 +5,17 @@ import backend.movable.Player;
 
 import java.awt.Point;
 
+
+/**
+ * 
+ * Destination es una clase de Floor que además tiene la habilidad
+ * de finalizar el juego en caso de que estuviera visible, y un Movable
+ * de tipo Player pasara a ocuparla.
+ * 
+ */
+
 public class Destination extends Floor {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private boolean visible = false;
 		
@@ -48,7 +54,7 @@ public class Destination extends Floor {
 	public void show() {
 		this.visible = true;
 		this.warpMovable();
-		this.notifyObservers();
+		this.wasChanged();
 	}
 	
 	/**
@@ -56,7 +62,7 @@ public class Destination extends Floor {
 	 */
 	public void hide() {
 		this.visible = false;
-		this.notifyObservers();
+		this.wasChanged();
 	}
 	
 	/**

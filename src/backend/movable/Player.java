@@ -1,16 +1,31 @@
 package backend.movable;
 
 import java.awt.Point;
+
 import backend.board.InvalidPositionException;
 import backend.Game;
 
 import backend.board.*;
 
+/**
+ * Player es una clase de Movable que ademas tiene la capacidad
+ * de terminar el juego (Game) que referencia, en caso de recibir el
+ * mensaje endGame, o el mensaje getWet, ganando o perdiendo segun corresponda.
+ * 
+ * @see Player#endGame()
+ * 
+ * Ademas, Player sobreescribe el metodo move, de manera que mueva al
+ * Movable que se encuentre en la direccion de su movimiento antes de moverse
+ * el mismo.
+ * 
+ * @see Player#move(Direction)
+ * 
+ * @author fede
+ *
+ */
+
 public class Player extends Movable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private Game game; // TODO ver si realmente es necesario game.

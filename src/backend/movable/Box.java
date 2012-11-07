@@ -6,6 +6,14 @@ import backend.cell.ShallowWater;
 
 import java.awt.Point;
 
+/**
+ * Box es una clase de Movable que ademas tiene la capacidad de convertir
+ * el bloque que ocupa en ShallowWater cuando recibe el mensaje getWet()
+ * @see Movable#getWet()
+ * @see Box#getWet()
+ *
+ */
+
 public class Box extends Movable{
 	
 	/**

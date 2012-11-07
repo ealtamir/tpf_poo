@@ -17,6 +17,8 @@ public class Game implements Serializable {
 	private boolean won = false;
 	private boolean lost = false;
 	
+	private GameListener listener = null;
+	
 	public Game(Board board, Point startPosition) {
 		this.board = board;
 		this.player = new Player(this, board, startPosition);
@@ -25,6 +27,10 @@ public class Game implements Serializable {
 	
 	public Game(){
 		
+	}
+	
+	public void setListener(GameListener listener) {
+		this.listener = listener;
 	}
 	
 	public void setBoard(Board board){
@@ -49,14 +55,19 @@ public class Game implements Serializable {
 	}
 	
 	public void win() {
-		System.out.println("You win!");
 		won = true;
+		
+		if (listener != null)
+			listener.gameWon(this);
 	}
 	
 	public void lose() {
-		System.out.println("You lose!");
 		lost = true;
+		
+		if (listener != null)
+			listener.gameLost(this);
 	}
+	
 	
 	public boolean isWon() {
 		return won;

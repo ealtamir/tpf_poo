@@ -9,11 +9,12 @@ import java.io.Serializable;
 
 import backend.board.Direction;
 
+/**
+ * 
+ *
+ */
 public abstract class Movable implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Point position;
 	private Board board;
