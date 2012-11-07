@@ -5,9 +5,10 @@ import java.awt.Point;
 /**
  * Una celda de tipo ShallowWater tiene exactamente el mismo comportamiento
  * que una celda de tipo Floor.
- * La unica diferencia apreciable es su apariencia, razón por la que
- * se distingue su tipo.
- * En el frontend esta diferencia deberia manifestarse en el grafico.
+ * Aunque actualmente sirve únicamente para distinguir la apariencia de la celda,
+ * con este diseño, en un futuro sería posible construir un nuevo comportamiento
+ * para una celda de este tipo, como por ejemplo que tenga la capacidad de hundirse.
+ * 
  */
 
 public class ShallowWater extends Floor {
