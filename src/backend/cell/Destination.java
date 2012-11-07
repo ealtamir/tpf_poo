@@ -54,7 +54,7 @@ public class Destination extends Floor {
 	public void show() {
 		this.visible = true;
 		this.warpMovable();
-		this.notifyObservers();
+		this.wasChanged();
 	}
 	
 	/**
@@ -62,7 +62,7 @@ public class Destination extends Floor {
 	 */
 	public void hide() {
 		this.visible = false;
-		this.notifyObservers();
+		this.wasChanged();
 	}
 	
 	/**

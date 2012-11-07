@@ -56,7 +56,7 @@ public class Floor extends Cell {
 	public Movable releaseMovable() {
 		Movable movable = this.movable;
 		this.movable = null;
-		this.notifyObservers();
+		this.wasChanged();
 		return movable;
 	}
 	
@@ -74,7 +74,7 @@ public class Floor extends Cell {
 		
 		this.movable = movable;
 		
-		this.notifyObservers();
+		this.wasChanged();
 		
 	}
 	

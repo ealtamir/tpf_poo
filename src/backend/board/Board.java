@@ -81,7 +81,7 @@ public class Board implements Iterable<Cell>, Serializable {
 	private void setCell(int row, int column, Cell cell) {
 		if (this.validPosition(row, column)) {
 			this.terrain[row][column] = cell;
-			cell.notifyObservers();
+			cell.wasChanged();
 		} else {
 			throw new InvalidPositionException(this, new Point(column, row));
 		}
