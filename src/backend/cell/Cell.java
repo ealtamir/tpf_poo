@@ -2,8 +2,6 @@ package backend.cell;
 
 import backend.movable.*;
 
-import general.observer.Observable;
-
 import java.awt.Point;
 import java.io.Serializable;
 
@@ -15,7 +13,7 @@ import java.io.Serializable;
  * 
  */
 
-public abstract class Cell extends Observable implements Serializable {
+public abstract class Cell implements Serializable {
 
 	/**
 	 * 
@@ -23,17 +21,28 @@ public abstract class Cell extends Observable implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Point position;
 	
+	private CellListener listener = null;
+	
 	public Cell(Point position) {
 		this.position = position;
 	}
 	
 	public Cell(Cell cell) {
-		super(cell);
 		this.position = cell.position;
+		this.listener = cell.listener;
+	}
+	
+	public void setListener(CellListener listener) {
+		this.listener = listener;
 	}
 	
 	public Point getPosition() {
-		return this.position;
+		return position;
+	}
+	
+	public void wasChanged() {
+		if (listener != null)
+			listener.cellChanged(this);
 	}
 	
 	/**
