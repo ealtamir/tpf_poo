@@ -18,6 +18,7 @@ import javax.swing.*;
 
 import backend.GameListener;
 import backend.board.Direction;
+import backend.cell.CellVisitor;
 import backend.cell.Destination;
 import backend.cell.Floor;
 import backend.cell.ShallowWater;
@@ -28,6 +29,7 @@ import backend.cell.Cell;
 import backend.movable.Box;
 import backend.movable.IceCube;
 import backend.movable.Movable;
+import backend.movable.MovableVisitor;
 import backend.movable.Player;
 
 import gui.BoardPanel;
@@ -56,11 +58,7 @@ import gui.ImageUtils;
  */
 public class GameFrame extends JFrame 
 	implements 
-		KeyListener, 
-		backend.cell.CellVisitor,
-		backend.movable.MovableVisitor,
-		CellListener,
-		GameListener {
+		KeyListener {
 	
 	
 	/**
@@ -93,6 +91,111 @@ public class GameFrame extends JFrame
 	private Image shallowWater;
 	private Image floor;
 	private Image box;
+	
+	private ElementRenderer renderer = new ElementRenderer();
+	
+	private class ElementRenderer implements CellVisitor, MovableVisitor {
+		
+		private void drawCell(Cell cell, Image image) {
+			Point position = cell.getPosition();
+			Movable movable = cell.getMovable();
+			
+			boardPanel.setImage(position.y, position.x, image);
+			
+			if (movable != null)
+				movable.accept(this);
+			
+		}
+		
+		private void drawMovable(Movable movable, Image image) {
+			Point position = movable.getPosition();		
+			boardPanel.appendImage(position.y, position.x, image);
+		}
+		
+		@Override 
+		public void visit(IceCube ic) {
+			drawMovable(ic, iceCube);
+		}
+
+		@Override
+		public void visit(Box b) {
+			drawMovable(b, box);
+		}
+
+		@Override
+		public void visit(Player p) {
+			drawMovable(p, player);
+		}	
+
+		@Override
+		public void visit(Floor f) {
+			drawCell(f, floor);
+		}
+
+		@Override
+		public void visit(ShallowWater sw) {
+			drawCell(sw, shallowWater);
+		}
+
+		@Override
+		public void visit(Switch s) {
+			drawCell(s, swtch);
+		}
+
+		@Override
+		public void visit(Tree t) {
+			Point p = t.getPosition();
+			drawCell(t, floor);
+			boardPanel.appendImage(p.y, p.x, tree);
+		}
+
+		@Override
+		public void visit(Water w) {
+			drawCell(w, water);
+		}
+
+		@Override
+		public void visit(Destination d) {
+			if (d.isVisible())
+				drawCell(d, destination);
+			else
+				drawCell(d, floor);
+		}
+		
+	}
+	
+	
+	private GameFrameCellListener cellListener =  new GameFrameCellListener();
+	
+	private class GameFrameCellListener implements CellListener {
+		
+		@Override
+		public void cellChanged(Cell cell) {
+			cell.accept(renderer);
+			repaint();
+		}
+		
+	}
+	
+	
+	private GameFrameGameListener gameListener = new GameFrameGameListener(); 
+	
+	private class GameFrameGameListener implements GameListener {
+		
+		@Override
+		public void gameLost(backend.Game game) {
+			// TODO Poner aca el codigo de cuando perdes el juego.
+			System.out.println("You lose...");
+			
+		}
+		@Override
+		public void gameWon(backend.Game game) {
+			// TODO Poner aca el codigo de cuando ganas el juego.
+			System.out.println("You win!");
+			
+		}
+		
+	}
 	
 	/**
 	 * Constructor de la clase frontend.Game. Recibe los siguientes parámetros:
@@ -129,7 +232,7 @@ public class GameFrame extends JFrame
 		menuBar.setVisible(true);
 		addKeyListener(this);
 		
-		game.setListener(this);
+		game.setListener(gameListener);
 		
 	}
 	
@@ -164,29 +267,13 @@ public class GameFrame extends JFrame
  * 				Helpers de gráficos
  * 
 *****************************************************/
-	private void drawBoard() {		
+	private void drawBoard() {
 		for (Cell cell: game.getBoard())
 		{
-			cell.setListener(this);
-			cell.accept(this);
+			cell.setListener(cellListener);
+			cell.accept(renderer);
 		}
 		repaint();
-	}
-	
-	private void drawCell(Cell cell, Image image) {
-		Point position = cell.getPosition();
-		Movable movable = cell.getMovable();
-		
-		boardPanel.setImage(position.y, position.x, image);
-		
-		if (movable != null)
-			movable.accept(this);
-		
-	}
-	
-	private void drawMovable(Movable movable, Image image) {
-		Point position = movable.getPosition();		
-		boardPanel.appendImage(position.y, position.x, image);
 	}
 	
 	
@@ -221,81 +308,5 @@ public class GameFrame extends JFrame
 			KEY_PRESSED = 0;
 		}
 	}
-/*****************************************************
- * 
- * 			Implementación de Visitor
- * 
-*****************************************************/
-	@Override 
-	public void visit(IceCube iceCube) {
-		drawMovable(iceCube, this.iceCube);
-	}
 
-	@Override
-	public void visit(Box box) {
-		drawMovable(box, this.box);
-	}
-
-	@Override
-	public void visit(Player player) {
-		drawMovable(player, this.player);
-	}	
-
-	@Override
-	public void visit(Floor f) {
-		drawCell(f, this.floor);
-	}
-
-	@Override
-	public void visit(ShallowWater sw) {
-		drawCell(sw, this.shallowWater);
-	}
-
-	@Override
-	public void visit(Switch s) {
-		drawCell(s, this.swtch);
-	}
-
-	@Override
-	public void visit(Tree t) {
-		Point p = t.getPosition();
-		drawCell(t, this.floor);
-		boardPanel.appendImage(p.y, p.x, tree);
-	}
-
-	@Override
-	public void visit(Water w) {
-		drawCell(w, this.water);
-	}
-
-	@Override
-	public void visit(Destination d) {
-		if (d.isVisible())
-			drawCell(d, this.destination);
-		else
-			drawCell(d, this.floor);
-	}
-	
-/*****************************************************
- * 
- * 			Implementación de Observer
- * 
-*****************************************************/
-	@Override
-	public void cellChanged(Cell cell) {
-		cell.accept(this);
-		repaint();
-	}
-	@Override
-	public void gameLost(backend.Game game) {
-		// TODO Poner aca el codigo de cuando perdes el juego.
-		System.out.println("You lose...");
-		
-	}
-	@Override
-	public void gameWon(backend.Game game) {
-		// TODO Poner aca el codigo de cuando ganas el juego.
-		System.out.println("You win!");
-		
-	}
 }
