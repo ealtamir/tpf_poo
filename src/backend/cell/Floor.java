@@ -2,6 +2,13 @@ package backend.cell;
 
 import java.awt.Point;
 
+
+/**
+ * Floor es una celda (@see Cell) que además tiene la habilidad de poder estar
+ * ocupada por un Movable.
+ * 
+ */
+
 import backend.movable.Movable;
 
 public class Floor extends Cell {

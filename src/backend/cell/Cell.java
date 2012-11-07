@@ -7,6 +7,14 @@ import general.observer.Observable;
 import java.awt.Point;
 import java.io.Serializable;
 
+/**
+ * Define e implementa metodos básicos para el comportamiento de una celda
+ * en el juego.
+ * Una celda abstracta consiste de un objeto observable con posibilidad
+ * de ubicarlo en alguna posicion de Board.
+ * 
+ */
+
 public abstract class Cell extends Observable implements Serializable {
 
 	/**

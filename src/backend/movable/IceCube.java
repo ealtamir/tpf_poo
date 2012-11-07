@@ -5,6 +5,13 @@ import backend.board.Direction;
 
 import java.awt.Point;
 
+/**
+ * IceCube es una clase de Movable que, en caso de ser desplazada (recibir
+ * el mensaje move), se mueve hasta no poder moverse mas, o derretirse.
+ * @see IceCube#move(Direction)
+ *
+ */
+
 public class IceCube extends Movable {
 	
 	/**

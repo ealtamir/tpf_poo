@@ -1,9 +1,17 @@
 package backend.cell;
 
 import backend.movable.IceCube;
+
 import backend.movable.Movable;
 
 import java.awt.Point;
+
+/**
+ * Switch es un tipo de piso que tiene una referencia a una celda de tipo
+ * Destination. Al ser ocupada por un Movable de tipo IceCube, Switch indica
+ * a la celda Destination que debe hacerse visible.
+ *
+ */
 
 public class Switch extends Floor {
 	

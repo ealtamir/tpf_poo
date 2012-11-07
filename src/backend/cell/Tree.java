@@ -4,6 +4,12 @@ import java.awt.Point;
 
 import backend.movable.Movable;
 
+/**
+ * Tree es un tipo de celda a la que nunca puede ingresar un Movable.
+ * (Tampoco es ocupable)
+ * 
+ */
+
 public class Tree extends Cell {
 	
 	/**
