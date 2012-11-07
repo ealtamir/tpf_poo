@@ -99,6 +99,8 @@ public class StartGame implements ActionListener {
 					file.writeObject(currentGameLogic);
 					file.writeObject(currentMap);
 					file.close();
+					
+					JOptionPane.showMessageDialog(gameScreen, "Tu partida ha sido salvada.");
 				} catch (FileNotFoundException e1) {
 					JOptionPane.showMessageDialog(gameScreen, e1.getMessage());
 					e1.printStackTrace();
@@ -108,7 +110,6 @@ public class StartGame implements ActionListener {
 				} finally {
 					backToMenu();
 				}
-				
 			}
 		});
 		close.addActionListener(new ActionListener() {
@@ -125,8 +126,7 @@ public class StartGame implements ActionListener {
 	private void startGameFromLevel() {
 		try {
 			currentGameLogic = (new Parser()).parse(currentMap);
-		} catch (InvalidFileException exception) {
-			JOptionPane.showMessageDialog(gameScreen, exception.getMessage());
+			startNewGame();
 		} catch (Exception exception) {
 			if (exception.getMessage() == null) {
 				JOptionPane.showMessageDialog(gameScreen, "Error al intentar cargar el mapa.");
@@ -136,7 +136,6 @@ public class StartGame implements ActionListener {
 			exception.printStackTrace();
 			gameScreen.setVisible(true);
 		}
-		startNewGame();
 	}
 	
 	protected void startNewGame() {

@@ -91,7 +91,7 @@ public class Game extends JFrame
 	
 	private void loadGraphics() {
 		try {
-			player 		= ImageUtils.loadImage("resources" + File.separator + "player.png");
+			player 		= ImageUtils.loadImage("resources" + File.separator + "trollface.png");
 			water 		= ImageUtils.loadImage("resources" + File.separator + "water.png");
 			iceCube 	= ImageUtils.loadImage("resources" + File.separator + "ice-box.png");
 			swtch 		= ImageUtils.loadImage("resources" + File.separator + "ice-box-target.png");

@@ -47,7 +47,9 @@ public class Parser {
 			}
 			/* Makes sure the level has a reasonable minimal space*/
 			if ( rows < MINIMUM_ROWS || columns < MINIMUM_COLS){
-				throw new InvalidFileException("Rows or columns go out of bounds. Both must be 5 or greater.");					
+				throw new InvalidFileException("El mapa debe tener más de " 
+						+ MINIMUM_COLS + " columnas y más de " 
+						+ MINIMUM_ROWS + " columnas.");
 			}
 			
 			parsedBoard = new Board(rows, columns);
@@ -77,7 +79,7 @@ public class Parser {
 						parsedBoard.setCell(position, newSwitch);
 						break;
 					case '@': 	if(parsedPlayer != null){
-									throw new InvalidFileException("Level contains more than one player.");
+									throw new InvalidFileException("El nivel contiene más de un jugador.");
 								}
 								parsedBoard.setCell(position, new Floor(parsedPlayer = new Player(parsedGame, parsedBoard, position),position));
 						break;
@@ -88,7 +90,7 @@ public class Parser {
 							parsedBoard.setCell(position, parsedDestination);
 						}
 						else {
-							throw new InvalidFileException("Level contains more than one destination.");
+							throw new InvalidFileException("El nivel contiene más de un destino.");
 						}
 						
 						break;
@@ -96,7 +98,8 @@ public class Parser {
 						break;
 					case ' ': 	parsedBoard.setCell(position, new Floor(position));
 						break;
-					default: 	throw new InvalidFileException("Some line contains an invalid character.");
+					default: 	throw new InvalidFileException("Algunas líneas " +
+							"contienen caracteres inválidos.");
 					}	
 				}
 				line = inStream.readLine();
@@ -111,7 +114,7 @@ public class Parser {
 				}
 			}
 			else {
-				throw new InvalidFileException("Level contains no destination.");
+				throw new InvalidFileException("El nivel no contiene ningún destino.");
 			}
 			
 			parsedGame.setBoard(parsedBoard);
