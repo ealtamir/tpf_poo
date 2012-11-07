@@ -23,10 +23,21 @@ public abstract class Movable implements Serializable {
 		this.position = position;
 	}
 	
+	/**
+	 * Dado el Board que se especifica al crearlo, el Movable
+	 * se inserta en este al llamar a este metodo.	
+	 */
 	public void insert() {
 		this.board.getCell(this.position).receiveMovable(this);
 	}
 	
+	/**
+	 * Mueve el Movable en la direccion especificada,
+	 * dentro del Board especificado al crearlo.
+	 * 
+	 * @param direction Direccion del movimiento
+	 * @return {@code true} en caso de haberse movido. De lo contrario {@code false}.
+	 */
 	public boolean move(Direction direction) {
 		
 		Cell currentCell = this.board.getCell(this.position);
@@ -62,6 +73,10 @@ public abstract class Movable implements Serializable {
 		return this.board;
 	}
 	
+	/**
+	 *  Patron Visitor para visitar Movables.
+	 *  @param visitor Visitor de Movable
+	 */
 	public abstract void accept(MovableVisitor visitor);
 	
 	public abstract void getWet();

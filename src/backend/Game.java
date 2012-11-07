@@ -10,8 +10,12 @@ public class Game implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private Board board;
 	private Player player;
+	
+	private boolean won = false;
+	private boolean lost = false;
 	
 	public Game(Board board, Point startPosition) {
 		this.board = board;
@@ -46,11 +50,19 @@ public class Game implements Serializable {
 	
 	public void win() {
 		System.out.println("You win!");
+		won = true;
 	}
 	
 	public void lose() {
 		System.out.println("You lose!");
+		lost = true;
 	}
 	
+	public boolean isWon() {
+		return won;
+	}
 	
+	public boolean isLost() {
+		return lost;
+	}
 }
