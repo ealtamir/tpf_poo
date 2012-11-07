@@ -54,7 +54,7 @@ import gui.ImageUtils;
  * @author enzo
  *
  */
-public class Game extends JFrame 
+public class GameFrame extends JFrame 
 	implements 
 		KeyListener, 
 		backend.cell.CellVisitor,
@@ -104,7 +104,7 @@ public class Game extends JFrame
 	 * @param menuBar, El objeto JMenuBar que representa la barra de menú que se mostrará
 	 * en la ventana de juego.
 	 */
-	public Game(String windowTitle, int rows, int columns, backend.Game game, JMenuBar menuBar) {
+	public GameFrame(String windowTitle, int rows, int columns, backend.Game game, JMenuBar menuBar) {
 		this.game = game;
 		
 		width = CELL_SIZE * columns; 
@@ -286,14 +286,12 @@ public class Game extends JFrame
 		cell.accept(this);
 		repaint();
 	}
-	
 	@Override
 	public void gameLost(backend.Game game) {
 		// TODO Poner aca el codigo de cuando perdes el juego.
 		System.out.println("You lose...");
 		
 	}
-	
 	@Override
 	public void gameWon(backend.Game game) {
 		// TODO Poner aca el codigo de cuando ganas el juego.

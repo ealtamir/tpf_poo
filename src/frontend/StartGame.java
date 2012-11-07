@@ -36,7 +36,7 @@ import java.util.Date;
  */
 public class StartGame implements ActionListener {
 
-	private Game currentGameGraphics;
+	private GameFrame currentGameGraphics;
 	
 	protected backend.Game currentGameLogic;
 	protected JFrame gameScreen;
@@ -208,7 +208,7 @@ public class StartGame implements ActionListener {
 	 */
 	protected void startNewGame() {
 		gameScreen.setVisible(false);
-		currentGameGraphics = new Game(
+		currentGameGraphics = new GameFrame(
 				"Silversphere", 
 				currentGameLogic.getBoard().getHeight(),
 				currentGameLogic.getBoard().getWidth(),
