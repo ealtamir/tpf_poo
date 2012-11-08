@@ -5,18 +5,18 @@ import static org.junit.Assert.*;
 import java.awt.Point;
 import java.io.File;
 
-import frontend.Parser;
 
 import org.junit.Test;
 
 import backend.board.Direction;
 import backend.Game;
+import backend.GameMapParser;
 import backend.cell.*;
 import backend.movable.*;
 
 public class GameTests {
 	Game game;
-	Parser parser = new Parser();
+	GameMapParser parser = new GameMapParser();
 	Player player;
 	
 	

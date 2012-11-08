@@ -1,4 +1,4 @@
-package frontend;
+package backend;
 
 import java.io.BufferedReader;
 
@@ -9,15 +9,21 @@ import java.awt.Point;
 
 import java.util.Stack;
 
+
 import backend.board.*;
 import backend.cell.*;
-import backend.Game;
 import backend.movable.*;
 
-public class Parser {
+public class GameMapParser extends GameLoader {
 	
 	final private int MINIMUM_ROWS = 5;
 	final private int MINIMUM_COLS = 5;
+	
+	@Override
+	public Game loadGame(File source) throws Exception {
+		setLoadedMap(source);
+		return parse(source);
+	}	
 	
 	@SuppressWarnings("resource")
 	public Game parse(File f) throws Exception {
@@ -137,5 +143,16 @@ public class Parser {
 			}
 		}
 
-	}	
+	}
+
+	/** 
+	 * Regresa el nombre del directorio donde se encuentras los archivos
+	 * que representan los mapas a parsear.
+	 */
+	@Override
+	public String getCurrentDirectory() {
+		return "levels";
+	}
+
+
 }
