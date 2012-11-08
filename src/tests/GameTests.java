@@ -22,7 +22,8 @@ public class GameTests {
 	
 	@Test
 	public void playerMovesCorrectlyToEmptyCell() throws Exception {
-		game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "emptyBoard.lvl"));
+		game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + 
+				"testlevels"  + File.separator + "emptyBoard.lvl"));
 		player = game.getPlayer();
 		
 		int oldRow = game.getPlayer().getPosition().y;
@@ -47,7 +48,8 @@ public class GameTests {
 	@Test
 	public void playerPushesCorrectlyBoxToEmptyCell() throws Exception{
 				
-		game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "surroundedByBoxes.lvl"));
+		game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator +
+				"testlevels"  + File.separator + "surroundedByBoxes.lvl"));
 			player = game.getPlayer();
 			
 			if(playerIsSurroundedByBoxes(game)){
@@ -115,7 +117,8 @@ public class GameTests {
  
  @Test
  public void playerCantMoveTwoBoxesSimultaneously() throws Exception{
-	game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "simultaneousBoxes.lvl"));
+	game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator +
+			"testlevels"  + File.separator + "simultaneousBoxes.lvl"));
 	player = game.getPlayer();
 	
 	if(!playerIsSurroundedByDoubleBoxes(game)){
@@ -187,10 +190,10 @@ public class GameTests {
  /* Test highly depends on the level to be loaded since cell coordinates are hardcoded. */
  @Test
  public void iceCubeMovesToLastPossiblePlace() throws Exception{
-	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "iceCubeMovementTest.lvl"));
+	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator +
+			 "testlevels"  + File.separator + "iceCubeMovementTest.lvl"));
 	 player = game.getPlayer();
 	 Point p = new Point(3,1);
-	 // TODO chequeo de que el lvl cargado es el correcto.
 	 
 	 assertTrue(game.getBoard().getCell(p).isOccupiable());
 	 player.move(Direction.NORTH);
@@ -220,12 +223,12 @@ public class GameTests {
  
  @Test
  public void gameEndsWhenPlayerFallsIntoTheWater() throws Exception{
-	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "surroundedByWater.lvl"));
+	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" +
+			 File.separator + "testlevels"  + File.separator + "surroundedByWater.lvl"));
 	 player = game.getPlayer();
 	 
 	 player.move(Direction.NORTH);
-	// assertTrue(game.loseConditions()); 
-	// TODO modificar el assert de arriba con la linea correcta que indica si se perdio el juego
+	 assertTrue(game.isLost()); 
 	 }
 @Test
  public void iceCubeDisappearsWhenFallingIntoWater() throws Exception{
@@ -237,17 +240,7 @@ public class GameTests {
 	 assertTrue(game.getBoard().getCell(new Point(5,2)).isOccupiable());
 	 assertTrue(game.getBoard().getCell(new Point(7,2)).isOccupiable());
  }
- 
- @Test(expected=Exception.class)
- public void parserThrowsExceptionIfTwoPlayersAreFound() throws Exception{
-	 parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "twoPlayers.lvl"));
- }
- 
- @Test(expected=Exception.class)
- public void parserThrowsExceptionIfNoDestinationIsFound() throws Exception{
-	 parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "noDestination.lvl"));
- }
- 
+  
  @Test
  public void gameIsWonWhenConditionsAreFulfilled() throws Exception{
 	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" +
@@ -267,5 +260,42 @@ public class GameTests {
 	  	parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" +
 				 File.separator + "testlevels" + File.separator + "wrongColumns.lvl"));
  }	
+ 
+ @Test(expected=Exception.class)
+ public void parserThrowsExceptionIfThereIsNoPlayer() throws Exception{
+	  	parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" +
+				 File.separator + "testlevels" + File.separator + "noPlayer.lvl"));
+ }	
+ 
+ @Test(expected=Exception.class)
+ public void parserThrowsExceptionIfMoreThanOnePlayerIsFound() throws Exception{
+	 parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator +
+			 "testlevels"  + File.separator + "twoPlayers.lvl"));
+ }
+ 
+ @Test(expected=Exception.class)
+ public void parserThrowsExceptionIfNoDestinationIsFound() throws Exception{
+	 parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator +
+			 "testlevels"  + File.separator + "noDestination.lvl"));
+ }
+ 
+ @Test(expected=Exception.class)
+ public void parserThrowsExceptionIfMoreThanOneDestinationIsFound() throws Exception{
+	 parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator +
+			 "testlevels"  + File.separator + "twoDestinations.lvl"));
+ }
+ 
+ @Test(expected=Exception.class)
+ public void parserThrowsExceptionIfNoSwitchIsFound() throws Exception{
+	 parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator +
+			 "testlevels"  + File.separator + "noSwitch.lvl"));
+ }
+ 
+ @Test(expected=Exception.class)
+ public void parserThrowsExceptionIfMoreThanOneSwitchIsFound() throws Exception{
+	 parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator +
+			 "testlevels"  + File.separator + "twoSwitches.lvl"));
+ }
+ 
 }
 

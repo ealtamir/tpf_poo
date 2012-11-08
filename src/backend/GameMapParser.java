@@ -27,8 +27,6 @@ import backend.movable.*;
  *	K: Interruptor
  *	T: Árbol
  *
- * @author enzo
- *
  */
 public class GameMapParser extends GameLoader {
 	
@@ -47,6 +45,7 @@ public class GameMapParser extends GameLoader {
 		Board parsedBoard;
 		Player parsedPlayer = null;
 		Destination parsedDestination = null;
+		Switch parsedSwitch = null;
 		BufferedReader inStream = null;
 		Stack<Switch> switchStack = new Stack<Switch>();
 		
@@ -81,9 +80,8 @@ public class GameMapParser extends GameLoader {
 			line = inStream.readLine();
 			for(int row = 0; line != null; row++){
 				if(line.length() != columns){
-					throw new InvalidFileException("Algunas líneas contienen más " 		+
-							"columnas que otras. Asegúrate que no hayan espacios " 	+
-							"en blanco cambiando la longitud de las filas.");
+					throw new InvalidFileException("Some lines contain more columns than others." +
+							"Please make sure that there are no blank spaces changing the lenght of the rows");
 				}
 				
 				char[] dividedLine = line.toCharArray();
@@ -96,10 +94,12 @@ public class GameMapParser extends GameLoader {
 						break;
 					case 'C': 	parsedBoard.setCell(position, new Floor(new IceCube(parsedBoard, position),position ));
 						break;
-					case 'K': 	
-						Switch newSwitch = new Switch(position);
-						switchStack.push(newSwitch);
-						parsedBoard.setCell(position, newSwitch);
+					case 'K': 	if( parsedSwitch != null){
+								throw new InvalidFileException("Level contains more than one switch.");
+								}
+								parsedSwitch = new Switch(position);
+								switchStack.push(parsedSwitch);
+								parsedBoard.setCell(position, parsedSwitch);
 						break;
 					case '@': 	if(parsedPlayer != null){
 									throw new InvalidFileException("Level contains more than one player.");
@@ -135,6 +135,14 @@ public class GameMapParser extends GameLoader {
 			}
 			else {
 				throw new InvalidFileException("Level contains no destination.");
+			}
+			
+			if(parsedPlayer == null){
+				throw new InvalidFileException("No player starting position was specified on the level file.");
+			}
+			
+			if(parsedSwitch == null){
+				throw new InvalidFileException("No switch was specified on the level file.");
 			}
 			
 			parsedGame.setBoard(parsedBoard);
