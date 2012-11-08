@@ -8,7 +8,7 @@
   
   <!-- Crea la documentacion en formato Javadoc, en el directorio doc. --> 
   <target name="doc" depends="compile"> 
-    <javadoc sourcepath="src" destdir="doc" classpath="lib/junit-4.7.jar"/>    
+    <javadoc sourcepath="src" destdir="doc" Encoding="UTF-8" classpath="lib/junit-4.7.jar"/>    
   </target> 
 
   <!-- Ejecuta los tests. --> 
