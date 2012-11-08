@@ -1,7 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/backend/GameMapParser.java=UTF-8
 encoding//src/frontend/GameFrame.java=UTF-8
-encoding//src/frontend/LoadGame.java=UTF-8
 encoding//src/frontend/LoadPanel.java=UTF-8
-encoding//src/frontend/Parser.java=UTF-8
-encoding//src/frontend/StartGame.java=UTF-8
 encoding/<project>=UTF-8

@@ -9,10 +9,8 @@ import backend.cell.*;
 
 public class Board implements Iterable<Cell>, Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private Cell terrain[][];
 	private int columns;
 	private int rows;

@@ -3,6 +3,9 @@ package frontend;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
+
+import backend.GameMapDeserializer;
+import backend.GameMapParser;
 import frontend.LoadPanel;
 
 
@@ -10,7 +13,6 @@ public class Main {
 	
 	private JFrame gameScreen;
 	
-
 	public static void main(String[] args) {
 		new Main("TP POO"); 
 	}
@@ -29,8 +31,12 @@ public class Main {
 		gameScreen.setResizable(false);
 		centerScreen(gameScreen);
 		
-		lpanel.getStartButton().addActionListener(new StartGame(gameScreen));
-		lpanel.getLoadButton().addActionListener(new LoadGame(gameScreen));
+		lpanel.getStartButton().addActionListener(
+			new GameStarter(gameScreen, new GameMapParser())
+		);
+		lpanel.getLoadButton().addActionListener(
+			new GameStarter(gameScreen, new GameMapDeserializer())
+		);
 		
 	}
 	

@@ -28,10 +28,14 @@ public class Player extends Movable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Game game; // TODO ver si realmente es necesario game.
+	private transient Game game; // TODO ver si realmente es necesario game.
 	
 	public Player(Game game, Board board, Point position){
 		super(board, position);
+		this.game = game;
+	}
+	
+	public void setGame(Game game) {
 		this.game = game;
 	}
 		

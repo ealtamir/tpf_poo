@@ -3,13 +3,9 @@ package backend;
 import backend.board.Board;
 import backend.movable.*;
 import java.awt.Point;
-import java.io.Serializable;
 
-public class Game implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Game {
+	
 	
 	private Board board;
 	private Player player;
@@ -23,6 +19,11 @@ public class Game implements Serializable {
 		this.board = board;
 		this.player = new Player(this, board, startPosition);
 		this.player.insert();
+	}
+	
+	public Game(Board board, Player player) {
+		this.board = board;
+		this.player = player;
 	}
 	
 	public Game(){
@@ -41,10 +42,6 @@ public class Game implements Serializable {
 		this.player = player;
 	}
 	
-	public Game(Board board, Player player) {
-		this.board = board;
-		this.player = player;
-	}
 	
 	public Board getBoard(){
 		return this.board;
