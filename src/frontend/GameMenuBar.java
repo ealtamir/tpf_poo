@@ -21,11 +21,6 @@ import backend.Game;
 
 public class GameMenuBar extends JMenuBar {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	public GameMenuBar(final GameStarter starterObject) {
 		
 		JMenu file = new JMenu("File");

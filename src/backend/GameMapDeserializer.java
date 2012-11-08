@@ -20,6 +20,7 @@ public class GameMapDeserializer extends GameLoader {
 		
 		Board loadedBoard = (Board) file.readObject();
 		Player loadedPlayer = (Player) file.readObject();
+		
 		Game currentGameLogic = new Game(loadedBoard, loadedPlayer);
 		loadedPlayer.setGame(currentGameLogic);
 		

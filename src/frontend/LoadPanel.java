@@ -15,11 +15,6 @@ import javax.swing.border.EmptyBorder;
 
 public class LoadPanel extends JPanel {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
 	private final int width = 200;
 	private final int height = 200;
 	private final String titleString = "Silversphere";

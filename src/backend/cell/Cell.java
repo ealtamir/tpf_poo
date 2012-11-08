@@ -18,7 +18,7 @@ public abstract class Cell implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Point position;
 	
-	private CellListener listener = null;
+	private transient CellListener listener = null;
 	
 	public Cell(Point position) {
 		this.position = position;

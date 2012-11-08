@@ -13,7 +13,6 @@ public class Main {
 	
 	private JFrame gameScreen;
 	
-
 	public static void main(String[] args) {
 		new Main("TP POO"); 
 	}
