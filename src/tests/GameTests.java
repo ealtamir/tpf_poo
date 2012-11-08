@@ -22,7 +22,7 @@ public class GameTests {
 	
 	@Test
 	public void playerMovesCorrectlyToEmptyCell() throws Exception {
-		game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "testlevels"  + File.separator + "emptyBoard.lvl"));
+		game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "emptyBoard.lvl"));
 		player = game.getPlayer();
 		
 		int oldRow = game.getPlayer().getPosition().y;
@@ -47,7 +47,7 @@ public class GameTests {
 	@Test
 	public void playerPushesCorrectlyBoxToEmptyCell() throws Exception{
 				
-		game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "testlevels"  + File.separator + "surroundedByBoxes.lvl"));
+		game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "surroundedByBoxes.lvl"));
 			player = game.getPlayer();
 			
 			if(playerIsSurroundedByBoxes(game)){
@@ -93,7 +93,8 @@ public class GameTests {
  
  @Test
  public void playerCantMoveBoxIntoTree() throws Exception{
-	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "testlevels"  + File.separator + "BoxesAndTrees.lvl"));
+	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator +
+			 "testlevels"  + File.separator + "boxesAndTrees.lvl"));
 	 player = game.getPlayer();
 		
  		if(game.getBoard().getCell(Direction.SOUTH.increment(player.getPosition())).isOccupiable() ||
@@ -114,7 +115,7 @@ public class GameTests {
  
  @Test
  public void playerCantMoveTwoBoxesSimultaneously() throws Exception{
-	game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "testlevels"  + File.separator + "simultaneousBoxes.lvl"));
+	game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "simultaneousBoxes.lvl"));
 	player = game.getPlayer();
 	
 	if(!playerIsSurroundedByDoubleBoxes(game)){
@@ -137,7 +138,7 @@ public class GameTests {
 	assertTrue(game.getBoard().getCell(Direction.WEST.increment(Direction.WEST.increment(Direction.WEST.increment(player.getPosition())))).isOccupiable());
 	assertTrue(!game.getBoard().getCell(player.getPosition()).isOccupiable());	
  }
- /** Checks if player is surrounded by rows and cols of 2 boxes.
+ /** Checks if player is surrounded by rows and cols of 2 simultaneous boxes.
   *   
   *      B
   *      B
@@ -158,7 +159,7 @@ public class GameTests {
  
  @Test
  public void playerCantMoveIntoTree() throws Exception{
-	game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "testlevels"  + File.separator + "surroundedByTrees.lvl"));
+	game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "surroundedByTrees.lvl"));
 	player = game.getPlayer();
 	
 	
@@ -186,7 +187,7 @@ public class GameTests {
  /* Test highly depends on the level to be loaded since cell coordinates are hardcoded. */
  @Test
  public void iceCubeMovesToLastPossiblePlace() throws Exception{
-	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "testlevels"  + File.separator + "iceCubeMovementTest.lvl"));
+	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "iceCubeMovementTest.lvl"));
 	 player = game.getPlayer();
 	 Point p = new Point(3,1);
 	 // TODO chequeo de que el lvl cargado es el correcto.
@@ -217,10 +218,9 @@ public class GameTests {
 	 assertTrue(!game.getBoard().getCell(p).isOccupiable());
  }
  
- 
  @Test
- public void gameEndsWhenPlayerFallsInTheWater() throws Exception{
-	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "testlevels"  + File.separator + "surroundedByWater.lvl"));
+ public void gameEndsWhenPlayerFallsIntoTheWater() throws Exception{
+	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "surroundedByWater.lvl"));
 	 player = game.getPlayer();
 	 
 	 player.move(Direction.NORTH);
@@ -229,7 +229,7 @@ public class GameTests {
 	 }
 @Test
  public void iceCubeDisappearsWhenFallingIntoWater() throws Exception{
-	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "testlevels"  + File.separator + "waterInCubesPath.lvl"));
+	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "waterInCubesPath.lvl"));
 	 player = game.getPlayer();
 	 
 	 player.move(Direction.EAST);
@@ -240,39 +240,32 @@ public class GameTests {
  
  @Test(expected=Exception.class)
  public void parserThrowsExceptionIfTwoPlayersAreFound() throws Exception{
-	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "testlevels"  + File.separator + "twoPlayers.lvl"));
+	 parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "twoPlayers.lvl"));
  }
  
  @Test(expected=Exception.class)
  public void parserThrowsExceptionIfNoDestinationIsFound() throws Exception{
-	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "testlevels"  + File.separator + "noDestination.lvl"));
+	 parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" + File.separator + "testlevels"  + File.separator + "noDestination.lvl"));
  }
  
- 
-// @Test
-// public void gameEndsWhenPlayerIsInDestination() throws Exception{
-//	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "src"  + File.separator +
-//					"tests" + File.separator + "winConditionsTestBoard.lvl"));
-//	 
-//	 game.getPlayer().move(Direction.NORTH);
-//	 game.getPlayer().move(Direction.EAST);
-//	 game.getPlayer().move(Direction.SOUTH);
-//	 assertTrue(game.winConditions());
-// }
+ @Test
+ public void gameIsWonWhenConditionsAreFulfilled() throws Exception{
+	 game = parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" +
+			 File.separator + "testlevels" + File.separator + "winningTest.lvl"));
+	 
+	 game.getPlayer().move(Direction.NORTH);
+	 assertTrue(!game.isWon());
+	 game.getPlayer().move(Direction.SOUTH);
+	 game.getPlayer().move(Direction.SOUTH);
+	 game.getPlayer().move(Direction.NORTH);
+	 game.getPlayer().move(Direction.NORTH);
+	 assertTrue(game.isWon());
+ }
 	
-
- 
-// @Test(expected=Exception.class)
-// public void parserThrowsExceptionIfLowerBoundsArentRespected() throws Exception{
-//	  	parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "src"  + File.separator +
-//				"tests" + File.separator + "outOfLowerBounds.lvl"));
-// }
-// 
-// @Test(expected=Exception.class)
-// public void parserThrowsExceptionIfUpperBoundsArentRespected() throws Exception{
-//	  	parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "src"  + File.separator +
-//				"tests" + File.separator + "outOfUpperBounds.lvl"));
-// }
-		
+ @Test(expected=Exception.class)
+ public void parserThrowsExceptionIfColumnNumbersArentRespected() throws Exception{
+	  	parser.parse(new File(new File(".").getCanonicalPath() + File.separator + "levels" +
+				 File.separator + "testlevels" + File.separator + "wrongColumns.lvl"));
+ }	
 }
 
