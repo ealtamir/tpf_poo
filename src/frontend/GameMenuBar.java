@@ -17,6 +17,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import backend.Game;
+
 public class GameMenuBar extends JMenuBar {
 
 	/**
@@ -80,12 +82,16 @@ public class GameMenuBar extends JMenuBar {
 				String date_str = dateFormat.format(date);
 				String map_name = (starterObject.getCurrentMap().getName().split("\\."))[0] + ".";
 				
-				String file_name = "saved_games" + File.separator + map_name + date_str + ".game";
+				String file_name = "saved_games" + File.separator + map_name + date_str;
 				try {
 					ObjectOutputStream file = new ObjectOutputStream(
 							new BufferedOutputStream(
 									new FileOutputStream(file_name)));
-					file.writeObject(starterObject.getCurrentGameLogic());
+					
+					Game game = starterObject.getCurrentGameLogic();
+					
+					file.writeObject(game.getBoard());
+					file.writeObject(game.getPlayer());
 					file.writeObject(starterObject.getCurrentMap());
 					file.close();
 					

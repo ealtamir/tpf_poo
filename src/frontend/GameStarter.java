@@ -45,6 +45,7 @@ public class GameStarter implements ActionListener {
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(gameScreen, e1.getMessage());
 				e1.printStackTrace();
+				backToMenu();
 			}
 		}
 	}
@@ -62,10 +63,7 @@ public class GameStarter implements ActionListener {
 		gameScreen.setVisible(false);
 		currentGameGraphics = new GameFrame(
 			"Silversphere", 
-			currentGameLogic.getBoard().getHeight(),
-			currentGameLogic.getBoard().getWidth(),
-			currentGameLogic,
-			createMenuBar()
+			this
 		);
 	}
 	

@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
+import backend.board.Board;
+import backend.movable.Player;
+
 public class GameMapDeserializer extends GameLoader {
 
 	@Override
@@ -15,7 +18,11 @@ public class GameMapDeserializer extends GameLoader {
 		           				new BufferedInputStream(
 		           				new FileInputStream(fileName)));
 		
-		Game currentGameLogic = (backend.Game) file.readObject();
+		Board loadedBoard = (Board) file.readObject();
+		Player loadedPlayer = (Player) file.readObject();
+		Game currentGameLogic = new Game(loadedBoard, loadedPlayer);
+		loadedPlayer.setGame(currentGameLogic);
+		
 		setLoadedMap((File) file.readObject());
 		
 		file.close();

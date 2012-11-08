@@ -12,11 +12,11 @@ import java.util.Map;
 
 import backend.cell.CellListener;
 
+import backend.Game;
 import backend.GameListener;
 
 import javax.swing.*;
 
-import backend.GameListener;
 import backend.board.Direction;
 import backend.cell.CellVisitor;
 import backend.cell.Destination;
@@ -56,15 +56,9 @@ import gui.ImageUtils;
  * @author enzo
  *
  */
-public class GameFrame extends JFrame 
-	implements 
-		KeyListener {
+public class GameFrame extends JFrame implements KeyListener {
 	
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private static final int CELL_SIZE = 30;
 	private Map<Integer, Direction> movesMap;
 	
@@ -75,11 +69,14 @@ public class GameFrame extends JFrame
 	private int width;
 	private int height;
 	
-	/* */
-	private backend.Game game;
+	/* Referencia a la lógica del juego que se usa para dibujar el mapa*/
+	private Game game;
 	
 	/* Panel que contiene los JPanels que representan cada celda del juego. */
 	private BoardPanel boardPanel;
+	
+	/* Referencia a la clase que inicia el juego. */
+	private GameStarter starterObject;
 	
 	/* Imagenes que se utilizarán en el juego */
 	private Image player;
@@ -95,7 +92,7 @@ public class GameFrame extends JFrame
 	private ElementRenderer renderer = new ElementRenderer();
 	
 	private class ElementRenderer implements CellVisitor, MovableVisitor {
-		
+
 		private void drawCell(Cell cell, Image image) {
 			Point position = cell.getPosition();
 			Movable movable = cell.getMovable();
@@ -163,6 +160,25 @@ public class GameFrame extends JFrame
 		}
 		
 	}
+	private GameFrameGameListener gameListener = new GameFrameGameListener();
+	
+	public class GameFrameGameListener implements GameListener {
+		
+		@Override
+		public void gameLost(Game game) {
+			JOptionPane.showMessageDialog(starterObject.getGameScreen(), "Perdiste el juego...");
+			starterObject.backToMenu();
+			System.out.println("You lose...");
+			
+		}
+		@Override
+		public void gameWon(Game game) {
+			JOptionPane.showMessageDialog(starterObject.getGameScreen(), "Ganaste el juego!");
+			starterObject.backToMenu();
+			System.out.println("You win!");
+		}
+		
+	}
 	
 	
 	private GameFrameCellListener cellListener =  new GameFrameCellListener();
@@ -174,27 +190,6 @@ public class GameFrame extends JFrame
 			cell.accept(renderer);
 			repaint();
 		}
-		
-	}
-	
-	
-	private GameFrameGameListener gameListener = new GameFrameGameListener(); 
-	
-	private class GameFrameGameListener implements GameListener {
-		
-		@Override
-		public void gameLost(backend.Game game) {
-			// TODO Poner aca el codigo de cuando perdes el juego.
-			System.out.println("You lose...");
-			
-		}
-		@Override
-		public void gameWon(backend.Game game) {
-			// TODO Poner aca el codigo de cuando ganas el juego.
-			System.out.println("You win!");
-			
-		}
-		
 	}
 	
 	/**
@@ -207,8 +202,14 @@ public class GameFrame extends JFrame
 	 * @param menuBar, El objeto JMenuBar que representa la barra de menú que se mostrará
 	 * en la ventana de juego.
 	 */
-	public GameFrame(String windowTitle, int rows, int columns, backend.Game game, JMenuBar menuBar) {
-		this.game = game;
+	public GameFrame(String windowTitle, final GameStarter starterObject) {
+		int columns = starterObject.getCurrentGameLogic().getBoard().getWidth();
+		int rows = starterObject.getCurrentGameLogic().getBoard().getHeight();
+		
+		JMenuBar menuBar = starterObject.createMenuBar();
+		
+		this.game = starterObject.getCurrentGameLogic();
+		this.starterObject = starterObject;
 		
 		width = CELL_SIZE * columns; 
 		// Cantidad que sumo para que quede alineado el panel con el frame.
@@ -223,6 +224,7 @@ public class GameFrame extends JFrame
 		movesMap.put(KeyEvent.VK_RIGHT, Direction.EAST);
 		
 		loadGraphics();
+		
 		setResizable(false);
 		setSize(width, height);
 		setLocationRelativeTo(null);
@@ -284,7 +286,7 @@ public class GameFrame extends JFrame
 *****************************************************/
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// Este m��todo no hace nada.
+		// Este método no hace nada.
 	}
 
 	@Override
@@ -308,5 +310,4 @@ public class GameFrame extends JFrame
 			KEY_PRESSED = 0;
 		}
 	}
-
 }
