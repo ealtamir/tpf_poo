@@ -268,15 +268,15 @@ public class GameFrame extends JFrame implements KeyListener {
 	 */
 	private void loadGraphics() {
 		try {
-			player 		= ImageUtils.loadImage("resources" + File.separator + "trollface.png");
-			water 		= ImageUtils.loadImage("resources" + File.separator + "water.png");
-			iceCube 	= ImageUtils.loadImage("resources" + File.separator + "ice-box.png");
-			swtch 		= ImageUtils.loadImage("resources" + File.separator + "ice-box-target.png");
-			destination = ImageUtils.loadImage("resources" + File.separator + "target.png");
-			tree 		= ImageUtils.loadImage("resources" + File.separator + "tree.png");
-			ImageUtils.loadImage("resources" + File.separator + "wall.png");
-			floor 		= ImageUtils.loadImage("resources" + File.separator + "cell.png");
-			box 		= ImageUtils.loadImage("resources" + File.separator + "box.png");
+			player 		 = ImageUtils.loadImage("resources" + File.separator + "trollface.png");
+			water 		 = ImageUtils.loadImage("resources" + File.separator + "water.png");
+			iceCube 	 = ImageUtils.loadImage("resources" + File.separator + "ice-box.png");
+			swtch 		 = ImageUtils.loadImage("resources" + File.separator + "ice-box-target.png");
+			destination  = ImageUtils.loadImage("resources" + File.separator + "target.png");
+			tree 		 = ImageUtils.loadImage("resources" + File.separator + "tree.png");
+			shallowWater = ImageUtils.loadImage("resources" + File.separator + "shallowWater.png");
+			floor 		 = ImageUtils.loadImage("resources" + File.separator + "cell.png");
+			box 		 = ImageUtils.loadImage("resources" + File.separator + "box.png");
 		} catch(IOException e) {
 			System.out.println("No se puedo cargar un archivo.");
 			e.printStackTrace();
