@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
-import javax.swing.JOptionPane;
-
 public class GameMapDeserializer extends GameLoader {
 
 	@Override

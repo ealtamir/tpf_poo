@@ -15,7 +15,7 @@ import backend.GameMapParser;
 
 public class GameStarter implements ActionListener {
 
-	private GameLoader loadMethod;
+	private GameLoader sourceType;
 	
 	private GameFrame currentGameGraphics;
 	private Game currentGameLogic;
@@ -26,21 +26,21 @@ public class GameStarter implements ActionListener {
 		this.currentMap = currentMap;
 	}
 	
-	public GameStarter(JFrame gameScreen, GameLoader loadMethod) {
+	public GameStarter(JFrame gameScreen, GameLoader sourceType) {
 		this.gameScreen = gameScreen;
-		this.loadMethod = loadMethod;
+		this.sourceType = sourceType;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JFileChooser fileopen = new JFileChooser();
-		fileopen.setCurrentDirectory(new File(loadMethod.getCurrentDirectory()));
+		fileopen.setCurrentDirectory(new File(sourceType.getCurrentDirectory()));
 
 		int ret = fileopen.showDialog(gameScreen.getContentPane(), "Open file");
 		if (ret == JFileChooser.APPROVE_OPTION) {
 			try {
-				currentGameLogic = loadMethod.loadGame(fileopen.getSelectedFile());
-				currentMap = loadMethod.getLoadedMap();
+				currentGameLogic = sourceType.loadGame(fileopen.getSelectedFile());
+				currentMap = sourceType.getLoadedMap();
 				startNewGame();
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(gameScreen, e1.getMessage());
