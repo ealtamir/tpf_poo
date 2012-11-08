@@ -58,8 +58,8 @@ public abstract class Movable implements Serializable {
 		
 		if (targetCell.isOccupiable()) {
 			this.position = targetCell.getPosition();
-			targetCell.receiveMovable(this);
 			currentCell.releaseMovable();
+			targetCell.receiveMovable(this);
 			return true;
 		}
 		

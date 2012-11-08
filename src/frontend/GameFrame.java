@@ -56,6 +56,7 @@ import gui.ImageUtils;
  * @author enzo
  *
  */
+@SuppressWarnings("serial")
 public class GameFrame extends JFrame implements KeyListener {
 	
 	
@@ -168,14 +169,12 @@ public class GameFrame extends JFrame implements KeyListener {
 		public void gameLost(Game game) {
 			JOptionPane.showMessageDialog(starterObject.getGameScreen(), "Perdiste el juego...");
 			starterObject.backToMenu();
-			System.out.println("You lose...");
 			
 		}
 		@Override
 		public void gameWon(Game game) {
 			JOptionPane.showMessageDialog(starterObject.getGameScreen(), "Ganaste el juego!");
 			starterObject.backToMenu();
-			System.out.println("You win!");
 		}
 		
 	}

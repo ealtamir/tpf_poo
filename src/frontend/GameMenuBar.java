@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 
 import backend.Game;
 
+@SuppressWarnings("serial")
 public class GameMenuBar extends JMenuBar {
 
 	public GameMenuBar(final GameStarter starterObject) {
