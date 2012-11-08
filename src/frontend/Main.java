@@ -9,6 +9,13 @@ import backend.GameMapParser;
 import frontend.LoadPanel;
 
 
+/**
+ * En esta clase empieza el programa. Ella se encarga de instanciar
+ * el JFrame inicial que es la primera ventana que ve el usuario. 
+ * 
+ * @author enzo
+ *
+ */
 public class Main {
 	
 	private JFrame gameScreen;
@@ -31,9 +38,20 @@ public class Main {
 		gameScreen.setResizable(false);
 		centerScreen(gameScreen);
 		
+		/**
+		 * Sirve para empezar un juego nuevo. 
+		 * Le agrega al botón "Start" un listener que le pide al
+		 * usurio un archivo mapa de dónde crear el juego nuevo.
+		 */
 		lpanel.getStartButton().addActionListener(
 			new GameStarter(gameScreen, new GameMapParser())
 		);
+		
+		/**
+		 * Sirve para cargar una partida guardada con anterioridad.
+		 * Le agrega al botón "Load" un listener que le pide al
+		 * usurio un archivo que contiene una partida serializada. 
+		 */
 		lpanel.getLoadButton().addActionListener(
 			new GameStarter(gameScreen, new GameMapDeserializer())
 		);

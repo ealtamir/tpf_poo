@@ -13,6 +13,18 @@ import backend.Game;
 import backend.GameLoader;
 import backend.GameMapParser;
 
+/**
+ * Esta clase se encarga de inicializar el juego. Obtiene
+ * del usuario un archivo que luego le pasa a una subclase
+ * de la clase abstracta backend.GameLoader la cual devuelve
+ * una instancia de backend.Game (un objeto que representa la
+ * lógica del juego). Adicionalmente implementa algunos métodos
+ * auxiliares que se encargan de manejar las ventanas que se
+ * le muestran al usuario.
+ * 
+ * @author enzo
+ *
+ */
 public class GameStarter implements ActionListener {
 
 	private GameLoader sourceType;

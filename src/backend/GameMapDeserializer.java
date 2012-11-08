@@ -8,6 +8,15 @@ import java.io.ObjectInputStream;
 import backend.board.Board;
 import backend.movable.Player;
 
+/**
+ * Implementa una clase que crea una instancia de
+ * backend.Game a partir de un archivo que contiene
+ * una partida que fue guardada con anterioridad
+ * utilizando serialización.
+ * 
+ * @author enzo
+ *
+ */
 public class GameMapDeserializer extends GameLoader {
 
 	@Override
@@ -18,6 +27,7 @@ public class GameMapDeserializer extends GameLoader {
 		           				new BufferedInputStream(
 		           				new FileInputStream(fileName)));
 		
+		/* Obtengo el board, player y el mapa de la partida guardada */
 		Board loadedBoard = (Board) file.readObject();
 		Player loadedPlayer = (Player) file.readObject();
 		

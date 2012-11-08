@@ -37,8 +37,9 @@ import gui.ImageUtils;
 
 /**
  * Clase que extiende de JFrame y que se ocupa de crear los gráficos
- * del juego. La clase implementa varias interfaces que se encargan
- * de los siguientes comportamientos:
+ * del juego. La clase implementa (ella misma o a través de clases 
+ * anónimas) varias interfaces que se encargan de los siguientes 
+ * comportamientos:
  * 
  * -KeyListener: Listeners para los eventos de teclado. 
  * 
@@ -49,10 +50,9 @@ import gui.ImageUtils;
  * -backend.movable.MovableVisitor: Provee el mismo funcionamiento que la clase
  * CellVisitor sólo que para los objetos backend.movable.Movable.
  * 
- * -Observer: Clase que le provee una interfaz al backend para que el mismo le
- * avise al frontend cuándo actualizar los gráficos, para que reflejen los últimos
- * cambios realizados.
- * 
+ * -backend.GameListener: Una interfaz que pide la implementación de listeners
+ * que utiliza el backend para hacerle saber al frontend que el juego
+ * se perdió o se ganó.
  * @author enzo
  *
  */
@@ -92,6 +92,14 @@ public class GameFrame extends JFrame implements KeyListener {
 	
 	private ElementRenderer renderer = new ElementRenderer();
 	
+	/**
+	 * Clase interna que implementa la interfaz de CellVisitor y
+	 * MovableVisitor. Estas implementaciones se utilizan para 
+	 * dibujar las celdas y los movables en la pantalla del juego.
+	 * 
+	 * @author enzo
+	 *
+	 */
 	private class ElementRenderer implements CellVisitor, MovableVisitor {
 
 		private void drawCell(Cell cell, Image image) {
@@ -163,6 +171,14 @@ public class GameFrame extends JFrame implements KeyListener {
 	}
 	private GameFrameGameListener gameListener = new GameFrameGameListener();
 	
+	/**
+	 * Clase interna que implementa los métodos listener para cuando el 
+	 * juego es ganado o perdido. El backend los utiliza para hacerle saber
+	 * al frontend el estado del juego.
+	 * 
+	 * @author enzo
+	 *
+	 */
 	public class GameFrameGameListener implements GameListener {
 		
 		@Override
@@ -182,6 +198,15 @@ public class GameFrame extends JFrame implements KeyListener {
 	
 	private GameFrameCellListener cellListener =  new GameFrameCellListener();
 	
+	/**
+	 * Esta clase interna implementa un método que le permite al backend
+	 * avisarle al frontend cuándo una celda cambió de estado. De esta forma
+	 * el frontend sabe qué celdas actualizar, haciendo que el proceso de 
+	 * dibujado de la ventana del juego, sea más eficiente.
+	 * 
+	 * @author enzo
+	 *
+	 */
 	private class GameFrameCellListener implements CellListener {
 		
 		@Override

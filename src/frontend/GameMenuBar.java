@@ -19,9 +19,26 @@ import javax.swing.JOptionPane;
 
 import backend.Game;
 
+/**
+ * Esta clase instancia una barra de menú del tipo JMenuBar.
+ * Esta barra se coloca en la ventana del juego y sirve para 
+ * brindarle al usuario varias opciones sobre la partida actual.
+ * 
+ * @author enzo
+ *
+ */
 @SuppressWarnings("serial")
 public class GameMenuBar extends JMenuBar {
 
+	/**
+	 * Constructor de la clase.
+	 * 
+	 * @param starterObject, clase que contiene información sobre
+	 * la ventana de menú inicial. Esta variable es necesaria ya que
+	 * desde la barra de menú se debe poder hacer aparecer y 
+	 * desaparecer la ventana de menú inicial.
+	 * 
+	 */
 	public GameMenuBar(final GameStarter starterObject) {
 		
 		JMenu file = new JMenu("File");

@@ -13,6 +13,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Clase que instancia JPanel y se encarga de crear el panel
+ * para la ventana de menú inicial. Esta clase incluye 3 botones
+ * de tipo JButton. Dos de ellos utilizan actionListeners que 
+ * se implementan fuera de la clase.
+ * 
+ * @author enzo
+ *
+ */
 @SuppressWarnings("serial")
 public class LoadPanel extends JPanel {
 	

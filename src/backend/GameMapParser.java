@@ -14,6 +14,22 @@ import backend.board.*;
 import backend.cell.*;
 import backend.movable.*;
 
+/**
+ * Parser que crea una instancia de backend.Game a partir
+ * de un archivo que contiene un mapa. Para señalar cada tipo
+ * de objeto dentro del mapa se utiliza la siguiente convención:
+ * 
+ * 	@: Jugador
+ *	G: Destino
+ *	#: Agua
+ *	B: Caja
+ *	C: Cubo de hielo
+ *	K: Interruptor
+ *	T: Árbol
+ *
+ * @author enzo
+ *
+ */
 public class GameMapParser extends GameLoader {
 	
 	final private int MINIMUM_ROWS = 5;
